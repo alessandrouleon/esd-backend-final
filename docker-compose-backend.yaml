@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend-esd:
+    image: backend-esd:latest
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        NODE_ENV: ${NODE_ENV}
+        PORT: ${DOCKER_PORT}
+    container_name: backend-esd
+    volumes:
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/etc/timezone:/etc/timezone:ro'
+    restart: always
+    ports:
+      - ${DOCKER_PORT}:${DOCKER_PORT}
+    env_file:
+      - .env
