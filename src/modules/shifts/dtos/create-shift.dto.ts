@@ -1,13 +1,17 @@
-import { IsString, Matches } from "class-validator";
-import { ShiftMessageHelper } from "src/utils/message.helps";
+import { IsString, Matches } from 'class-validator';
+import { ShiftMessageHelper } from 'src/utils/message.helps';
 
 export class CreateShiftDto {
-    id?: string;
+  id?: string;
 
-    @IsString()
-    @Matches(/\S/, { message: ShiftMessageHelper.EMPTY_NAME })
-    name: string;
+  @IsString()
+  @Matches(/\S/, { message: ShiftMessageHelper.EMPTY_CODE })
+  code: string;
 
-    updatedAt?: Date;
-    deletedAt?: Date;
+  @IsString()
+  @Matches(/\S/, { message: ShiftMessageHelper.EMPTY_DESCRIPTION })
+  description: string;
+
+  updatedAt?: Date;
+  deletedAt?: Date;
 }

@@ -15,7 +15,8 @@ datasource db {
 
 model Shift {
   id        String    @id @default(uuid())
-  name      String    @db.VarChar(256)
+  code      String    @db.VarChar(256)
+  description      String    @db.VarChar(256)
   createdAt DateTime  @default(dbgenerated("NOW()")) @db.DateTime
   updatedAt DateTime? @db.DateTime
   deletedAt DateTime? @db.DateTime
