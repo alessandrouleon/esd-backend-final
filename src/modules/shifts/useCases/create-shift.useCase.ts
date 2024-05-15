@@ -13,7 +13,7 @@ export class CreateShiftUseCase {
   ) {}
 
   async execute(data: CreateShiftDto): Promise<ShiftEntity> {
-    await this.shiftService.validatesShiftCodeAndDescription(
+    await this.shiftService.validateCodeAndDescriptionOnCreate(
       data.code,
       data.description,
     );
