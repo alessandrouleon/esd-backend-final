@@ -22,3 +22,13 @@ model Shift {
   deletedAt DateTime? @db.DateTime
   @@map("shifts")
 }
+
+model Department {
+  id        String    @id @default(uuid())
+  code      String    @db.VarChar(256)
+  description      String    @db.VarChar(256)
+  createdAt DateTime  @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt DateTime? @db.DateTime
+  deletedAt DateTime? @db.DateTime
+  @@map("departments")
+}
