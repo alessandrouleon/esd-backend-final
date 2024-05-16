@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { ShiftMessageHelper } from 'src/utils/message.helps';
-import { ShiftRepositoryContract } from '../repositories/shift.repository.contract';
+import { LineMessageHelper } from 'src/utils/message.helps';
+import { LineRepositoryContract } from '../repositories/line.repository.contract';
 
 @Injectable()
-export class ValidateShiftService {
+export class ValidateLineService {
   constructor(
-    @Inject('ShiftRepositoryContract')
-    private shiftRepository: ShiftRepositoryContract,
+    @Inject('LineRepositoryContract')
+    private lineRepository: LineRepositoryContract,
   ) {}
 
   async validateCodeAndDescriptionOnCreate(
@@ -14,20 +14,20 @@ export class ValidateShiftService {
     description: string,
   ): Promise<void> {
     const [existCode, existeDescription] = await Promise.all([
-      this.shiftRepository.findByCode(code),
-      this.shiftRepository.findByDecription(description),
+      this.lineRepository.findByCode(code),
+      this.lineRepository.findByDecription(description),
     ]);
 
     if (existCode) {
       throw new HttpException(
-        ShiftMessageHelper.EXIST_CODE,
+        LineMessageHelper.EXIST_CODE,
         HttpStatus.BAD_REQUEST,
       );
     }
 
     if (existeDescription) {
       throw new HttpException(
-        ShiftMessageHelper.EXIST_DESCRIPTION,
+        LineMessageHelper.EXIST_DESCRIPTION,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -35,10 +35,10 @@ export class ValidateShiftService {
 
   async validateCodeOnUpdate(newCode: string, oldCode: string): Promise<void> {
     if (newCode !== oldCode) {
-      const existCode = await this.shiftRepository.findByCode(newCode);
+      const existCode = await this.lineRepository.findByCode(newCode);
       if (existCode) {
         throw new HttpException(
-          ShiftMessageHelper.EXIST_CODE,
+          LineMessageHelper.EXIST_CODE,
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -51,11 +51,11 @@ export class ValidateShiftService {
   ): Promise<void> {
     if (newDescription !== oldDescription) {
       const existDescription =
-        await this.shiftRepository.findByDecription(newDescription);
+        await this.lineRepository.findByDecription(newDescription);
 
       if (existDescription) {
         throw new HttpException(
-          ShiftMessageHelper.EXIST_DESCRIPTION,
+          LineMessageHelper.EXIST_DESCRIPTION,
           HttpStatus.BAD_REQUEST,
         );
       }
