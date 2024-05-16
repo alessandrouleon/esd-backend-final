@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import {
-  // IShiftReturnWithPagination,
+  IShiftReturnWithPagination,
   ShiftRepositoryContract,
 } from './shift.repository.contract';
-// import { PaginatedData } from 'src/utils/pagination';
+import { PaginatedData } from 'src/utils/pagination';
 import { CreateShiftDto } from '../dtos/create-shift.dto';
 import { ShiftEntity } from '../entities/shift.entity';
 import { PrismaService } from 'src/gateways/prisma/prisma.service';
@@ -22,7 +22,7 @@ export class ShiftRepository implements ShiftRepositoryContract {
     data: UpdateShiftDto,
   ): Promise<ShiftEntity> {
     return this.repository.shift.update({
-      where: { id },
+      where: { id, deletedAt: null },
       data,
     });
   }
@@ -42,27 +42,60 @@ export class ShiftRepository implements ShiftRepositoryContract {
 
   public async findByCode(code: string): Promise<ShiftEntity> {
     const findCode = await this.repository.shift.findFirst({
-      where: { code },
+      where: { code, deletedAt: null },
     });
     return findCode;
   }
   public async findByDecription(description: string): Promise<ShiftEntity> {
     const findDescription = await this.repository.shift.findFirst({
-      where: { description },
+      where: { description, deletedAt: null },
     });
     return findDescription;
   }
 
-  // findFilteredShiftWithPagination(
-  //   value: string,
-  //   parametersToPaginate: PaginatedData,
-  // ): Promise<IShiftReturnWithPagination> {
-  //   throw new Error('Method not implemented.');
-  // }
+  public async findAllShiftsWithPagination({
+    page,
+    take,
+  }: PaginatedData): Promise<IShiftReturnWithPagination> {
+    const [data, total] = await Promise.all([
+      this.repository.shift.findMany({
+        take,
+        skip: (page - 1) * take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: { deletedAt: null },
+      }),
+      this.repository.shift.count({ where: { deletedAt: null } }),
+    ]);
+    return { shifts: data, total };
+  }
 
-  // findAllShiftsWithPagination(
-  //   parametersToPaginate: PaginatedData,
-  // ): Promise<IShiftReturnWithPagination> {
-  //   throw new Error('Method not implemented.');
-  // }
+  public async findFilteredShiftWithPagination(
+    value: string,
+    { take, page }: PaginatedData,
+  ): Promise<IShiftReturnWithPagination> {
+    const [data] = await Promise.all([
+      this.repository.shift.findMany({
+        take,
+        skip: (page - 1) * take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          OR: [
+            {
+              code: { contains: value },
+            },
+            {
+              description: { contains: value },
+            },
+          ],
+          deletedAt: null,
+        },
+      }),
+    ]);
+    const total = data.length;
+    return { shifts: data, total };
+  }
 }

@@ -4,6 +4,8 @@ import { CreateShiftUseCase } from '../useCases/create-shift.useCase';
 import { ValidateShiftService } from '../services/validate-shift.service';
 import { ShiftRepository } from '../repositories/shift.repository';
 import { UpdateShiftUseCase } from '../useCases/update-shift.useCase';
+import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
+import { GetShiftUseCase } from '../useCases/get-shift.useCase';
 
 @Module({
   controllers: [ShiftController],
@@ -11,6 +13,8 @@ import { UpdateShiftUseCase } from '../useCases/update-shift.useCase';
   providers: [
     CreateShiftUseCase,
     UpdateShiftUseCase,
+    DeleteShiftUseCase,
+    GetShiftUseCase,
     ValidateShiftService,
     {
       provide: 'ShiftRepositoryContract',
