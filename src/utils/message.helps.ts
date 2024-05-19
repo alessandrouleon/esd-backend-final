@@ -27,3 +27,20 @@ export const LineMessageHelper = {
   EXIST_CODE: 'Este código já está cadastrada',
   EXIST_DESCRIPTION: 'Esta descrição já está cadastrada',
 };
+
+export const OperatorMessageHelper = {
+  ID_NOT_EXIST: 'Este operador não existe',
+  ID_NOT_EXIST_FOR_UPDATE: 'Este operador não existe para ser alterada',
+  ID_NOT_EXIST_FOR_DELETED: 'Este operador não existe para ser deletada',
+  EMPTY_NAME: 'Preencha campo nome do operador',
+  EMPTY_REGISTRATION: 'Preencha campo matrícula do operador',
+  EMPTY_BOOT: 'Preencha campo bota antiestática do operador',
+  EMPTY_BRACELETE: 'Preencha campo pulseira antiestática do operador',
+  EMPTY_STATUS: 'Preencha campo státus do operador',
+  EMPTY_SHIFT_ID: 'Preencha campo turno do operador',
+  EMPTY_DEPARTMENT_ID: 'Preencha campo departamento do operador',
+  EMPTY_LINE_ID: 'Preencha campo linha do operador',
+
+  EXIST_NAME: 'Este nome já está cadastrada',
+  EXIST_REGISTRATION: 'Esta matrícula já está cadastrada',
+};

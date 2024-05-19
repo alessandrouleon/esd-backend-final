@@ -14,32 +14,57 @@ datasource db {
 }
 
 model Shift {
-  id        String    @id @default(uuid())
-  code      String    @db.VarChar(256)
-  description      String    @db.VarChar(256)
-  createdAt DateTime  @default(dbgenerated("NOW()")) @db.DateTime
-  updatedAt DateTime? @db.DateTime
-  deletedAt DateTime? @db.DateTime
+  id          String     @id @default(uuid())
+  code        String     @db.VarChar(56)
+  description String     @db.VarChar(56)
+  createdAt   DateTime   @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt   DateTime?  @db.DateTime
+  deletedAt   DateTime?  @db.DateTime
+  Operator    Operator[]
+
   @@map("shifts")
 }
 
 model Department {
-  id        String    @id @default(uuid())
-  code      String    @db.VarChar(256)
-  description      String    @db.VarChar(256)
-  createdAt DateTime  @default(dbgenerated("NOW()")) @db.DateTime
-  updatedAt DateTime? @db.DateTime
-  deletedAt DateTime? @db.DateTime
+  id          String     @id @default(uuid())
+  code        String     @db.VarChar(56)
+  description String     @db.VarChar(56)
+  createdAt   DateTime   @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt   DateTime?  @db.DateTime
+  deletedAt   DateTime?  @db.DateTime
+  Operator    Operator[]
+
   @@map("departments")
 }
 
 model Line {
-  id        String    @id @default(uuid())
-  code      String    @db.VarChar(256)
-  description      String    @db.VarChar(256)
-  createdAt DateTime  @default(dbgenerated("NOW()")) @db.DateTime
-  updatedAt DateTime? @db.DateTime
-  deletedAt DateTime? @db.DateTime
+  id          String     @id @default(uuid())
+  code        String     @db.VarChar(56)
+  description String     @db.VarChar(56)
+  createdAt   DateTime   @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt   DateTime?  @db.DateTime
+  deletedAt   DateTime?  @db.DateTime
+  Operator    Operator[]
+
   @@map("lines")
 }
 
+model Operator {
+  id           String     @id @default(uuid())
+  name         String     @unique @db.VarChar(56)
+  registration String     @unique @db.VarChar(56)
+  boot         String     @db.Char(3)
+  bracelete    String     @db.Char(3)
+  status       String     @db.Char(56)
+  shift        Shift      @relation(fields: [shiftId], references: [id])
+  shiftId      String
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  line         Line       @relation(fields: [lineId], references: [id])
+  lineId       String
+  createdAt    DateTime   @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt    DateTime?  @db.DateTime
+  deletedAt    DateTime?  @db.DateTime
+
+  @@map("operators")
+}
