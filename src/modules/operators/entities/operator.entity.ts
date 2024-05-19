@@ -10,7 +10,6 @@ export class OperatorEntity {
   shiftId: string;
   departmentId: string;
   lineId: string;
-
   updatedAt: Date;
   deletedAt: Date;
 
