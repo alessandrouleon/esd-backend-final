@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ShiftRepositoryContract } from '../repositories/shift.repository.contract';
-import { ValidateShiftService } from '../services/validate-shift.service';
+import { ValidateShiftUpdateService } from '../services/validate-shift.update.service';
 import { UpdateShiftDto } from '../dtos/update-shift.dto';
 import { ShiftEntity } from '../entities/shift.entity';
 import { ShiftMessageHelper } from 'src/utils/message.helps';
@@ -11,7 +11,7 @@ export class UpdateShiftUseCase {
   constructor(
     @Inject('ShiftRepositoryContract')
     private shiftRepository: ShiftRepositoryContract,
-    private shiftValidate: ValidateShiftService,
+    private shiftValidate: ValidateShiftUpdateService,
   ) {}
 
   async update(id: string, data: UpdateShiftDto): Promise<ShiftEntity> {

@@ -2,14 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DepartmentRepositoryContract } from '../repositories/department.repository.contract';
 import { CreateDepartmentDto } from '../dtos/create-department.dto';
 import { DepartmentEntity } from '../entities/department.entity';
-import { ValidateDepartmentService } from '../services/validate-department.service';
+import { ValidateDepartmentCreateService } from '../services/validate-department.create.service';
 
 @Injectable()
 export class CreateDepartmentUseCase {
   constructor(
     @Inject('DepartmentRepositoryContract')
     private departmentRepository: DepartmentRepositoryContract,
-    private departmentService: ValidateDepartmentService,
+    private departmentService: ValidateDepartmentCreateService,
   ) {}
 
   async execute(data: CreateDepartmentDto): Promise<DepartmentEntity> {
@@ -17,7 +17,6 @@ export class CreateDepartmentUseCase {
       data.code,
       data.description,
     );
-    const department = await this.departmentRepository.createDepartment(data);
-    return department;
+    return await this.departmentRepository.createDepartment(data);
   }
 }

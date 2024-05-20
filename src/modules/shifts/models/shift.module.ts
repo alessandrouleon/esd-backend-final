@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ShiftController } from '../controllers/shift.controller';
 import { CreateShiftUseCase } from '../useCases/create-shift.useCase';
-import { ValidateShiftService } from '../services/validate-shift.service';
+import { ValidateShiftCreateService } from '../services/validate-shift.create.service';
 import { ShiftRepository } from '../repositories/shift.repository';
 import { UpdateShiftUseCase } from '../useCases/update-shift.useCase';
 import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
 import { GetShiftUseCase } from '../useCases/get-shift.useCase';
+import { ValidateShiftUpdateService } from '../services/validate-shift.update.service';
 
 @Module({
   controllers: [ShiftController],
@@ -15,7 +16,8 @@ import { GetShiftUseCase } from '../useCases/get-shift.useCase';
     UpdateShiftUseCase,
     DeleteShiftUseCase,
     GetShiftUseCase,
-    ValidateShiftService,
+    ValidateShiftCreateService,
+    ValidateShiftUpdateService,
     {
       provide: 'ShiftRepositoryContract',
       useClass: ShiftRepository,

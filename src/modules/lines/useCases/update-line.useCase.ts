@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { LineRepositoryContract } from '../repositories/line.repository.contract';
-import { ValidateLineService } from '../services/validate-line.service';
+import { ValidateLineUpdateService } from '../services/validate-line.update.service';
 import { UpdateLineDto } from '../dtos/update-line.dto';
 import { LineEntity } from '../entities/line.entity';
 import { LineMessageHelper } from 'src/utils/message.helps';
@@ -11,7 +11,7 @@ export class UpdateLineUseCase {
   constructor(
     @Inject('LineRepositoryContract')
     private lineRepository: LineRepositoryContract,
-    private lineValidate: ValidateLineService,
+    private lineValidate: ValidateLineUpdateService,
   ) {}
 
   async update(id: string, data: UpdateLineDto): Promise<LineEntity> {

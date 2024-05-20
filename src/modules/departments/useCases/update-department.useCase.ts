@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { DepartmentRepositoryContract } from '../repositories/department.repository.contract';
-import { ValidateDepartmentService } from '../services/validate-department.service';
+import { ValidateDepartmentUpdateService } from '../services/validate-department.update.service';
 import { UpdateDepartmentDto } from '../dtos/update-department.dto';
 import { DepartmentEntity } from '../entities/department.entity';
 import { DepartmentMessageHelper } from 'src/utils/message.helps';
@@ -11,7 +11,7 @@ export class UpdateDepartmentUseCase {
   constructor(
     @Inject('DepartmentRepositoryContract')
     private departmentRepository: DepartmentRepositoryContract,
-    private departmentValidate: ValidateDepartmentService,
+    private departmentValidate: ValidateDepartmentUpdateService,
   ) {}
 
   async update(

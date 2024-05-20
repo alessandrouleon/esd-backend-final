@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { LineController } from '../controllers/line.controller';
 import { CreateLineUseCase } from '../useCases/create-line.useCase';
-import { ValidateLineService } from '../services/validate-line.service';
+import { ValidateLineUpdateService } from '../services/validate-line.update.service';
 import { LineRepository } from '../repositories/line.repository';
 import { UpdateLineUseCase } from '../useCases/update-line.useCase';
 import { DeleteLineUseCase } from '../useCases/delete-line.useCase';
 import { GetLineUseCase } from '../useCases/get-line.useCase';
+import { ValidateLineCreateService } from '../services/validate-line.create.service';
 
 @Module({
   controllers: [LineController],
@@ -15,7 +16,8 @@ import { GetLineUseCase } from '../useCases/get-line.useCase';
     UpdateLineUseCase,
     DeleteLineUseCase,
     GetLineUseCase,
-    ValidateLineService,
+    ValidateLineCreateService,
+    ValidateLineUpdateService,
     {
       provide: 'LineRepositoryContract',
       useClass: LineRepository,

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { DepartmentController } from '../controllers/department.controller';
 import { CreateDepartmentUseCase } from '../useCases/create-department.useCase';
-import { ValidateDepartmentService } from '../services/validate-department.service';
+import { ValidateDepartmentCreateService } from '../services/validate-department.create.service';
 import { DepartmentRepository } from '../repositories/department.repository';
 import { UpdateDepartmentUseCase } from '../useCases/update-department.useCase';
 import { DeleteDepartmentUseCase } from '../useCases/delete-department.useCase';
 import { GetDepartmentUseCase } from '../useCases/get-department.useCase';
+import { ValidateDepartmentUpdateService } from '../services/validate-department.update.service';
 
 @Module({
   controllers: [DepartmentController],
@@ -15,7 +16,8 @@ import { GetDepartmentUseCase } from '../useCases/get-department.useCase';
     UpdateDepartmentUseCase,
     DeleteDepartmentUseCase,
     GetDepartmentUseCase,
-    ValidateDepartmentService,
+    ValidateDepartmentCreateService,
+    ValidateDepartmentUpdateService,
     {
       provide: 'DepartmentRepositoryContract',
       useClass: DepartmentRepository,
