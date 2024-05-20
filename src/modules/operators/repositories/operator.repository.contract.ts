@@ -14,4 +14,5 @@ export interface OperatorRepositoryContract {
   findDepartmentById(id: string): Promise<DepartmentEntity | null>;
   findLineById(id: string): Promise<LineEntity | null>;
   updateOperator(id: string, data: UpdateOperatorDto): Promise<OperatorEntity>;
+  deleteOperator(id: string, data: UpdateOperatorDto): Promise<OperatorEntity>;
 }

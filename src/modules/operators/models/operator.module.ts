@@ -5,7 +5,7 @@ import { OperatorRepository } from '../repositories/operator.repository';
 import { ValidatesOperatorCreateService } from '../services/validates.operator.create.service';
 import { UpdateOperatorUseCase } from '../useCases/update-operator.useCase';
 import { ValidatesOperatorUpdateService } from '../services/validates.operator.update.service';
-// import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
+import { DeleteOperatorUseCase } from '../useCases/delete-operator.useCase';
 // import { GetShiftUseCase } from '../useCases/get-shift.useCase';
 
 @Module({
@@ -14,7 +14,7 @@ import { ValidatesOperatorUpdateService } from '../services/validates.operator.u
   providers: [
     CreateOperatorUseCase,
     UpdateOperatorUseCase,
-    // DeleteShiftUseCase,
+    DeleteOperatorUseCase,
     // GetShiftUseCase,
     ValidatesOperatorCreateService,
     ValidatesOperatorUpdateService,

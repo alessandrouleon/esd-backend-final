@@ -2,7 +2,7 @@ import {
   Body,
   Controller,
   Post,
-  //   Delete,
+  Delete,
   //   Get,
   Param,
   Patch,
@@ -12,8 +12,7 @@ import { CreateOperatorUseCase } from '../useCases/create-operator.useCase';
 import { CreateOperatorDto } from '../dtos/create-operator.dto';
 import { UpdateOperatorUseCase } from '../useCases/update-operator.useCase';
 import { UpdateOperatorDto } from '../dtos/update-operator.dto';
-//   import { UpdateShiftDto } from '../dtos/update-shift.dto';
-//   import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
+import { DeleteOperatorUseCase } from '../useCases/delete-operator.useCase';
 //   import { SearchValueInColumn } from 'src/utils/pagination';
 //   import { GetShiftUseCase } from '../useCases/get-shift.useCase';
 
@@ -22,7 +21,7 @@ export class OperatorController {
   constructor(
     private readonly createOperatorUseCase: CreateOperatorUseCase,
     private readonly updateOperatorUseCase: UpdateOperatorUseCase,
-    //   private readonly deleteShiftUseCase: DeleteShiftUseCase,
+    private readonly deleteOperatorUseCase: DeleteOperatorUseCase,
     //   private readonly getShiftUseCase: GetShiftUseCase,
   ) {}
 
@@ -39,10 +38,10 @@ export class OperatorController {
     return this.updateOperatorUseCase.update(id, updateOperatorDto);
   }
 
-  // @Delete(':id')
-  // delete(@Param('id') id: string) {
-  //   return this.deleteShiftUseCase.delete(id);
-  // }
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.deleteOperatorUseCase.delete(id);
+  }
 
   // @Get('/search/:page')
   // async findSearch(

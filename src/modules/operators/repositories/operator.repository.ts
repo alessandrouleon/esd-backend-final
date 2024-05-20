@@ -28,6 +28,16 @@ export class OperatorRepository implements OperatorRepositoryContract {
     });
   }
 
+  public async deleteOperator(
+    id: string,
+    data: UpdateOperatorDto,
+  ): Promise<OperatorEntity> {
+    return await this.repository.operator.update({
+      where: { id, deletedAt: null },
+      data,
+    });
+  }
+
   public async findByOperatorId(id: string): Promise<OperatorEntity> {
     return await this.repository.operator.findFirst({
       where: { id, deletedAt: null },
