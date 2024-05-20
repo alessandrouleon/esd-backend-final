@@ -4,13 +4,14 @@ import {
   Post,
   //   Delete,
   //   Get,
-  //   Param,
-  //   Patch,
+  Param,
+  Patch,
   //   Query,
 } from '@nestjs/common';
 import { CreateOperatorUseCase } from '../useCases/create-operator.useCase';
 import { CreateOperatorDto } from '../dtos/create-operator.dto';
-//   import { UpdateShiftUseCase } from '../useCases/update-shift.useCase';
+import { UpdateOperatorUseCase } from '../useCases/update-operator.useCase';
+import { UpdateOperatorDto } from '../dtos/update-operator.dto';
 //   import { UpdateShiftDto } from '../dtos/update-shift.dto';
 //   import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
 //   import { SearchValueInColumn } from 'src/utils/pagination';
@@ -20,7 +21,7 @@ import { CreateOperatorDto } from '../dtos/create-operator.dto';
 export class OperatorController {
   constructor(
     private readonly createOperatorUseCase: CreateOperatorUseCase,
-    //   private readonly updateShiftUseCase: UpdateShiftUseCase,
+    private readonly updateOperatorUseCase: UpdateOperatorUseCase,
     //   private readonly deleteShiftUseCase: DeleteShiftUseCase,
     //   private readonly getShiftUseCase: GetShiftUseCase,
   ) {}
@@ -30,10 +31,13 @@ export class OperatorController {
     return this.createOperatorUseCase.execute(createOperatorDto);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateShiftDto: UpdateShiftDto) {
-  //   return this.updateShiftUseCase.update(id, updateShiftDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateOperatorDto: UpdateOperatorDto,
+  ) {
+    return this.updateOperatorUseCase.update(id, updateOperatorDto);
+  }
 
   // @Delete(':id')
   // delete(@Param('id') id: string) {

@@ -2,14 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { OperatorRepositoryContract } from '../repositories/operator.repository.contract';
 import { CreateOperatorDto } from '../dtos/create-operator.dto';
 import { OperatorEntity } from '../entities/operator.entity';
-import { ValidateOperatorService } from '../services/validate-operator.service';
+import { ValidatesOperatorCreateService } from '../services/validates.operator.create.service';
 
 @Injectable()
 export class CreateOperatorUseCase {
   constructor(
     @Inject('OperatorRepositoryContract')
     private operatorRepository: OperatorRepositoryContract,
-    private validateSevice: ValidateOperatorService,
+    private validateSevice: ValidatesOperatorCreateService,
   ) {}
 
   async execute(data: CreateOperatorDto): Promise<OperatorEntity> {

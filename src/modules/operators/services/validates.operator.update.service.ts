@@ -8,40 +8,34 @@ import {
 import { OperatorRepositoryContract } from '../repositories/operator.repository.contract';
 
 @Injectable()
-export class ValidateOperatorService {
+export class ValidatesOperatorUpdateService {
   constructor(
     @Inject('OperatorRepositoryContract')
     private operatorRepository: OperatorRepositoryContract,
   ) {}
 
-  async validateNameOnCreate(newName: string): Promise<void> {
-    const oldName = await this.operatorRepository.findByName(newName);
-
-    if (oldName) {
-      if (newName !== String(oldName)) {
-        throw new HttpException(
-          OperatorMessageHelper.EXIST_NAME,
-          HttpStatus.BAD_REQUEST,
-        );
-      }
+  async validateNameOnUpdate(newName: string, oldName: string): Promise<void> {
+    if (newName !== oldName) {
+      throw new HttpException(
+        OperatorMessageHelper.EXIST_NAME,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
-  async validateRegistrationOnCreate(newRegistration: string): Promise<void> {
-    const oldRegistration =
-      await this.operatorRepository.findByRegistration(newRegistration);
-
-    if (oldRegistration) {
-      if (newRegistration !== String(oldRegistration)) {
-        throw new HttpException(
-          OperatorMessageHelper.EXIST_REGISTRATION,
-          HttpStatus.BAD_REQUEST,
-        );
-      }
+  async validateRegistrationOnUpdate(
+    newRegistration: string,
+    oldRegistration: string,
+  ): Promise<void> {
+    if (newRegistration !== oldRegistration) {
+      throw new HttpException(
+        OperatorMessageHelper.EXIST_REGISTRATION,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
-  async validateIdsOnCreate(
+  async validateIdsOnUpdate(
     shiftId: string,
     departmentId: string,
     lineId: string,
