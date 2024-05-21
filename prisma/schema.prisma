@@ -56,11 +56,11 @@ model Operator {
   boot         String     @db.Char(3)
   bracelete    String     @db.Char(3)
   status       String     @db.Char(56)
-  shift        Shift      @relation(fields: [shiftId], references: [id])
+  Shift        Shift      @relation(fields: [shiftId], references: [id])
   shiftId      String
-  department   Department @relation(fields: [departmentId], references: [id])
+  Department   Department @relation(fields: [departmentId], references: [id])
   departmentId String
-  line         Line       @relation(fields: [lineId], references: [id])
+  Line         Line       @relation(fields: [lineId], references: [id])
   lineId       String
   createdAt    DateTime   @default(dbgenerated("NOW()")) @db.DateTime
   updatedAt    DateTime?  @db.DateTime

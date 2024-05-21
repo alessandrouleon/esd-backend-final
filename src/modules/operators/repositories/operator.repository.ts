@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { OperatorRepositoryContract } from './operator.repository.contract';
+import {
+  IOperatorReturnWithPagination,
+  OperatorRepositoryContract,
+} from './operator.repository.contract';
 import { PrismaService } from 'src/gateways/prisma/prisma.service';
 import { CreateOperatorDto } from '../dtos/create-operator.dto';
 import { OperatorEntity } from '../entities/operator.entity';
@@ -7,6 +10,7 @@ import { DepartmentEntity } from 'src/modules/departments/entities/department.en
 import { LineEntity } from 'src/modules/lines/entities/line.entity';
 import { ShiftEntity } from 'src/modules/shifts/entities/shift.entity';
 import { UpdateOperatorDto } from '../dtos/update-operator.dto';
+import { PaginatedData } from 'src/utils/pagination';
 
 @Injectable()
 export class OperatorRepository implements OperatorRepositoryContract {
@@ -76,5 +80,88 @@ export class OperatorRepository implements OperatorRepositoryContract {
     return this.repository.line.findUnique({
       where: { id, deletedAt: null },
     });
+  }
+
+  public async findFilteredOperatorsWithPagination(
+    value: string,
+    { take, page }: PaginatedData,
+  ): Promise<IOperatorReturnWithPagination> {
+    const [data] = await Promise.all([
+      this.repository.operator.findMany({
+        take,
+        skip: (page - 1) * take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          OR: [
+            {
+              name: { contains: value },
+            },
+            {
+              registration: { contains: value },
+            },
+            {
+              boot: { contains: value },
+            },
+            {
+              bracelete: { contains: value },
+            },
+            {
+              status: { contains: value },
+            },
+            {
+              Shift: { code: { contains: value } },
+            },
+            {
+              Shift: { description: { contains: value } },
+            },
+            {
+              Department: { code: { contains: value } },
+            },
+            {
+              Department: { description: { contains: value } },
+            },
+            {
+              Line: { code: { contains: value } },
+            },
+            {
+              Line: { description: { contains: value } },
+            },
+          ],
+          deletedAt: null,
+        },
+        include: {
+          Shift: true,
+          Department: true,
+          Line: true,
+        },
+      }),
+    ]);
+    const total = data.length;
+    return { operators: data, total };
+  }
+
+  public async findAllOperatorsWithPagination({
+    page,
+    take,
+  }: PaginatedData): Promise<IOperatorReturnWithPagination> {
+    const [data, total] = await Promise.all([
+      this.repository.operator.findMany({
+        take,
+        skip: (page - 1) * take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: { deletedAt: null },
+        include: {
+          Shift: true,
+          Department: true,
+          Line: true,
+        },
+      }),
+      this.repository.operator.count({ where: { deletedAt: null } }),
+    ]);
+    return { operators: data, total };
   }
 }

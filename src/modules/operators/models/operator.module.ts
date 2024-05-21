@@ -6,7 +6,7 @@ import { ValidatesOperatorCreateService } from '../services/validates.operator.c
 import { UpdateOperatorUseCase } from '../useCases/update-operator.useCase';
 import { ValidatesOperatorUpdateService } from '../services/validates.operator.update.service';
 import { DeleteOperatorUseCase } from '../useCases/delete-operator.useCase';
-// import { GetShiftUseCase } from '../useCases/get-shift.useCase';
+import { GetOperatorUseCase } from '../useCases/get-operator.useCase';
 
 @Module({
   controllers: [OperatorController],
@@ -15,7 +15,7 @@ import { DeleteOperatorUseCase } from '../useCases/delete-operator.useCase';
     CreateOperatorUseCase,
     UpdateOperatorUseCase,
     DeleteOperatorUseCase,
-    // GetShiftUseCase,
+    GetOperatorUseCase,
     ValidatesOperatorCreateService,
     ValidatesOperatorUpdateService,
     {

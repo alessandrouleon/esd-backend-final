@@ -4,6 +4,12 @@ import { LineEntity } from 'src/modules/lines/entities/line.entity';
 import { ShiftEntity } from 'src/modules/shifts/entities/shift.entity';
 import { DepartmentEntity } from 'src/modules/departments/entities/department.entity';
 import { UpdateOperatorDto } from '../dtos/update-operator.dto';
+import { PaginatedData } from 'src/utils/pagination';
+
+export interface IOperatorReturnWithPagination {
+  operators: OperatorEntity[];
+  total: number;
+}
 
 export interface OperatorRepositoryContract {
   createOperator(data: CreateOperatorDto): Promise<OperatorEntity>;
@@ -15,4 +21,11 @@ export interface OperatorRepositoryContract {
   findLineById(id: string): Promise<LineEntity | null>;
   updateOperator(id: string, data: UpdateOperatorDto): Promise<OperatorEntity>;
   deleteOperator(id: string, data: UpdateOperatorDto): Promise<OperatorEntity>;
+  findFilteredOperatorsWithPagination(
+    value: string,
+    parametersToPaginate: PaginatedData,
+  ): Promise<IOperatorReturnWithPagination | null>;
+  findAllOperatorsWithPagination(
+    parametersToPaginate: PaginatedData,
+  ): Promise<IOperatorReturnWithPagination | null>;
 }
