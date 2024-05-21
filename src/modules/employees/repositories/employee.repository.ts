@@ -1,63 +1,63 @@
 import { Injectable } from '@nestjs/common';
 import {
-  IOperatorReturnWithPagination,
-  OperatorRepositoryContract,
-} from './operator.repository.contract';
+  IEmployeeReturnWithPagination,
+  EmployeeRepositoryContract,
+} from './employee.repository.contract';
 import { PrismaService } from 'src/gateways/prisma/prisma.service';
-import { CreateOperatorDto } from '../dtos/create-operator.dto';
-import { OperatorEntity } from '../entities/operator.entity';
+import { CreateEmployeeDto } from '../dtos/create-employee.dto';
+import { EmployeeEntity } from '../entities/employee.entity';
 import { DepartmentEntity } from 'src/modules/departments/entities/department.entity';
 import { LineEntity } from 'src/modules/lines/entities/line.entity';
 import { ShiftEntity } from 'src/modules/shifts/entities/shift.entity';
-import { UpdateOperatorDto } from '../dtos/update-operator.dto';
+import { UpdateEmployeeDto } from '../dtos/update-employee.dto';
 import { PaginatedData } from 'src/utils/pagination';
 
 @Injectable()
-export class OperatorRepository implements OperatorRepositoryContract {
+export class EmployeeRepository implements EmployeeRepositoryContract {
   constructor(private readonly repository: PrismaService) {}
 
-  public async createOperator(
-    data: CreateOperatorDto,
-  ): Promise<OperatorEntity> {
-    return await this.repository.operator.create({ data });
+  public async createEmployee(
+    data: CreateEmployeeDto,
+  ): Promise<EmployeeEntity> {
+    return await this.repository.employee.create({ data });
   }
 
-  public async updateOperator(
+  public async updateEmployee(
     id: string,
-    data: UpdateOperatorDto,
-  ): Promise<OperatorEntity> {
-    return await this.repository.operator.update({
+    data: UpdateEmployeeDto,
+  ): Promise<EmployeeEntity> {
+    return await this.repository.employee.update({
       where: { id, deletedAt: null },
       data,
     });
   }
 
-  public async deleteOperator(
+  public async deleteEmployee(
     id: string,
-    data: UpdateOperatorDto,
-  ): Promise<OperatorEntity> {
-    return await this.repository.operator.update({
+    data: UpdateEmployeeDto,
+  ): Promise<EmployeeEntity> {
+    return await this.repository.employee.update({
       where: { id, deletedAt: null },
       data,
     });
   }
 
-  public async findByOperatorId(id: string): Promise<OperatorEntity> {
-    return await this.repository.operator.findFirst({
+  public async findByEmployeeId(id: string): Promise<EmployeeEntity> {
+    return await this.repository.employee.findFirst({
       where: { id, deletedAt: null },
     });
   }
 
-  public async findByName(name: string): Promise<OperatorEntity | null> {
-    return await this.repository.operator.findFirst({
+  public async findByName(name: string): Promise<EmployeeEntity | null> {
+    return await this.repository.employee.findFirst({
       where: { name, deletedAt: null },
     });
   }
 
   public async findByRegistration(
     registration: string,
-  ): Promise<OperatorEntity | null> {
-    return await this.repository.operator.findFirst({
+  ): Promise<EmployeeEntity | null> {
+    return await this.repository.employee.findFirst({
       where: { registration, deletedAt: null },
     });
   }
@@ -82,12 +82,12 @@ export class OperatorRepository implements OperatorRepositoryContract {
     });
   }
 
-  public async findFilteredOperatorsWithPagination(
+  public async findFilteredEmployeesWithPagination(
     value: string,
     { take, page }: PaginatedData,
-  ): Promise<IOperatorReturnWithPagination> {
+  ): Promise<IEmployeeReturnWithPagination> {
     const [data] = await Promise.all([
-      this.repository.operator.findMany({
+      this.repository.employee.findMany({
         take,
         skip: (page - 1) * take,
         orderBy: {
@@ -139,15 +139,15 @@ export class OperatorRepository implements OperatorRepositoryContract {
       }),
     ]);
     const total = data.length;
-    return { operators: data, total };
+    return { employees: data, total };
   }
 
-  public async findAllOperatorsWithPagination({
+  public async findAllEmployeesWithPagination({
     page,
     take,
-  }: PaginatedData): Promise<IOperatorReturnWithPagination> {
+  }: PaginatedData): Promise<IEmployeeReturnWithPagination> {
     const [data, total] = await Promise.all([
-      this.repository.operator.findMany({
+      this.repository.employee.findMany({
         take,
         skip: (page - 1) * take,
         orderBy: {
@@ -160,8 +160,8 @@ export class OperatorRepository implements OperatorRepositoryContract {
           Line: true,
         },
       }),
-      this.repository.operator.count({ where: { deletedAt: null } }),
+      this.repository.employee.count({ where: { deletedAt: null } }),
     ]);
-    return { operators: data, total };
+    return { employees: data, total };
   }
 }

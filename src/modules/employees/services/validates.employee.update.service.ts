@@ -2,22 +2,22 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import {
   DepartmentMessageHelper,
   LineMessageHelper,
-  OperatorMessageHelper,
+  EmployeeMessageHelper,
   ShiftMessageHelper,
 } from 'src/utils/message.helps';
-import { OperatorRepositoryContract } from '../repositories/operator.repository.contract';
+import { EmployeeRepositoryContract } from '../repositories/employee.repository.contract';
 
 @Injectable()
-export class ValidatesOperatorUpdateService {
+export class ValidatesEmployeeUpdateService {
   constructor(
-    @Inject('OperatorRepositoryContract')
-    private operatorRepository: OperatorRepositoryContract,
+    @Inject('EmployeeRepositoryContract')
+    private employeeRepository: EmployeeRepositoryContract,
   ) {}
 
   async validateNameOnUpdate(newName: string, oldName: string): Promise<void> {
     if (newName !== oldName) {
       throw new HttpException(
-        OperatorMessageHelper.EXIST_NAME,
+        EmployeeMessageHelper.EXIST_NAME,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -29,7 +29,7 @@ export class ValidatesOperatorUpdateService {
   ): Promise<void> {
     if (newRegistration !== oldRegistration) {
       throw new HttpException(
-        OperatorMessageHelper.EXIST_REGISTRATION,
+        EmployeeMessageHelper.EXIST_REGISTRATION,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -41,9 +41,9 @@ export class ValidatesOperatorUpdateService {
     lineId: string,
   ): Promise<void> {
     const [shift, department, line] = await Promise.all([
-      this.operatorRepository.findShiftById(shiftId),
-      this.operatorRepository.findDepartmentById(departmentId),
-      this.operatorRepository.findLineById(lineId),
+      this.employeeRepository.findShiftById(shiftId),
+      this.employeeRepository.findDepartmentById(departmentId),
+      this.employeeRepository.findLineById(lineId),
     ]);
 
     if (!shift) {

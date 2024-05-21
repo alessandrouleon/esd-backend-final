@@ -5,7 +5,7 @@ import { PrismaModule } from './gateways/prisma/prisma.module';
 import { ShiftModule } from './modules/shifts/models/shift.module';
 import { DepartmentModule } from './modules/departments/models/department.module';
 import { LineModule } from './modules/lines/models/line.module';
-import { OperatorModule } from './modules/operators/models/operator.module';
+import { EmployeeModule } from './modules/employees/models/employee.module';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { OperatorModule } from './modules/operators/models/operator.module';
     ShiftModule,
     DepartmentModule,
     LineModule,
-    OperatorModule,
+    EmployeeModule,
   ],
   controllers: [],
   providers: [],

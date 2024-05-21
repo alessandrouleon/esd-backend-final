@@ -2,24 +2,24 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import {
   DepartmentMessageHelper,
   LineMessageHelper,
-  OperatorMessageHelper,
+  EmployeeMessageHelper,
   ShiftMessageHelper,
 } from 'src/utils/message.helps';
-import { OperatorRepositoryContract } from '../repositories/operator.repository.contract';
+import { EmployeeRepositoryContract } from '../repositories/employee.repository.contract';
 
 @Injectable()
-export class ValidatesOperatorCreateService {
+export class ValidatesEmployeeCreateService {
   constructor(
-    @Inject('OperatorRepositoryContract')
-    private operatorRepository: OperatorRepositoryContract,
+    @Inject('EmployeeRepositoryContract')
+    private employeeRepository: EmployeeRepositoryContract,
   ) {}
 
   async validateNameOnCreate(newName: string): Promise<void> {
-    const existName = await this.operatorRepository.findByName(newName);
+    const existName = await this.employeeRepository.findByName(newName);
 
     if (existName) {
       throw new HttpException(
-        OperatorMessageHelper.EXIST_NAME,
+        EmployeeMessageHelper.EXIST_NAME,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -27,11 +27,11 @@ export class ValidatesOperatorCreateService {
 
   async validateRegistrationOnCreate(newRegistration: string): Promise<void> {
     const existRegistration =
-      await this.operatorRepository.findByRegistration(newRegistration);
+      await this.employeeRepository.findByRegistration(newRegistration);
 
     if (existRegistration) {
       throw new HttpException(
-        OperatorMessageHelper.EXIST_REGISTRATION,
+        EmployeeMessageHelper.EXIST_REGISTRATION,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -43,9 +43,9 @@ export class ValidatesOperatorCreateService {
     lineId: string,
   ): Promise<void> {
     const [shift, department, line] = await Promise.all([
-      this.operatorRepository.findShiftById(shiftId),
-      this.operatorRepository.findDepartmentById(departmentId),
-      this.operatorRepository.findLineById(lineId),
+      this.employeeRepository.findShiftById(shiftId),
+      this.employeeRepository.findDepartmentById(departmentId),
+      this.employeeRepository.findLineById(lineId),
     ]);
 
     if (!shift) {

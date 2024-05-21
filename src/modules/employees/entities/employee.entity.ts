@@ -1,9 +1,10 @@
 import { randomUUID as uuid } from 'crypto';
 
-export class OperatorEntity {
+export class EmployeeEntity {
   id: string;
   name: string;
   registration: string;
+  employeeImage?: string;
   boot: string;
   bracelete: string;
   status: string;
@@ -13,7 +14,7 @@ export class OperatorEntity {
   updatedAt: Date;
   deletedAt: Date;
 
-  constructor(props: Omit<OperatorEntity, 'id'>, id?: string) {
+  constructor(props: Omit<EmployeeEntity, 'id'>, id?: string) {
     Object.assign(this, props);
     this.id = id ?? uuid();
   }
