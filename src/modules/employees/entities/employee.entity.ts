@@ -4,7 +4,7 @@ export class EmployeeEntity {
   id: string;
   name: string;
   registration: string;
-  employeeImage?: string;
+  imageId?: string;
   boot: string;
   bracelete: string;
   status: string;

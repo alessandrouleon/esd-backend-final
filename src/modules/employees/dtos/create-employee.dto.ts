@@ -35,7 +35,7 @@ export class CreateEmployeeDto {
   @Matches(/\S/, { message: EmployeeMessageHelper.EMPTY_LINE_ID })
   lineId: string;
 
-  employeeImage?: string;
+  imageId?: string;
   updatedAt?: Date;
   deletedAt?: Date;
 }

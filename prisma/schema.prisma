@@ -50,22 +50,22 @@ model Line {
 }
 
 model Employee {
-  id            String     @id @default(uuid())
-  name          String     @unique @db.VarChar(56)
-  registration  String     @unique @db.VarChar(56)
-  employeeImage String?    @unique @db.VarChar(256)
-  boot          String     @db.Char(3)
-  bracelete     String     @db.Char(3)
-  status        String     @db.Char(56)
-  Shift         Shift      @relation(fields: [shiftId], references: [id])
-  shiftId       String
-  Department    Department @relation(fields: [departmentId], references: [id])
-  departmentId  String
-  Line          Line       @relation(fields: [lineId], references: [id])
-  lineId        String
-  createdAt     DateTime   @default(dbgenerated("NOW()")) @db.DateTime
-  updatedAt     DateTime?  @db.DateTime
-  deletedAt     DateTime?  @db.DateTime
+  id           String     @id @default(uuid())
+  name         String     @unique @db.VarChar(56)
+  registration String     @unique @db.VarChar(56)
+  boot         String     @db.Char(3)
+  bracelete    String     @db.Char(3)
+  status       String     @db.Char(56)
+  imageId      String?    @unique @db.VarChar(256)
+  Shift        Shift      @relation(fields: [shiftId], references: [id])
+  shiftId      String
+  Department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  Line         Line       @relation(fields: [lineId], references: [id])
+  lineId       String
+  createdAt    DateTime   @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt    DateTime?  @db.DateTime
+  deletedAt    DateTime?  @db.DateTime
 
   @@map("employees")
 }
