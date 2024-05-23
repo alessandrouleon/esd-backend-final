@@ -44,3 +44,9 @@ export const EmployeeMessageHelper = {
   EXIST_NAME: 'Este nome já está cadastrada',
   EXIST_REGISTRATION: 'Esta matrícula já está cadastrada',
 };
+
+export const SupabaseValidationMessageHelper = {
+  FILE_NOT_EXIST: 'Arquivo não encontrado',
+  VALIDATE_FILE_TYPE: 'Apenas arquivos de tipo imagem são permitidos!',
+  IMAGE_NOT_EXISTS: 'Esta imagem não existe!',
+};

@@ -4,6 +4,7 @@ import { CreateEmployeeDto } from '../dtos/create-employee.dto';
 import { EmployeeEntity } from '../entities/employee.entity';
 import { ValidatesEmployeeCreateService } from '../services/validates.employee.create.service';
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
+import { SupabaseValidationMessageHelper } from 'src/utils/message.helps';
 
 @Injectable()
 export class CreateEmployeeUseCase {
@@ -25,7 +26,6 @@ export class CreateEmployeeUseCase {
       ),
     ]);
 
-    //Valida se a imagem existe no storage supabase
     let imageId: string = null;
     if (data.imageId.trim()) {
       const existeEmployeeImage =
@@ -34,7 +34,7 @@ export class CreateEmployeeUseCase {
 
       if (!existeEmployeeImage) {
         throw new HttpException(
-          'Esta imagem não existe!',
+          SupabaseValidationMessageHelper.IMAGE_NOT_EXISTS,
           HttpStatus.BAD_REQUEST,
         );
       }

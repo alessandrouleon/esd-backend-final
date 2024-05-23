@@ -8,12 +8,14 @@ import {
 } from 'src/utils/pagination';
 import { PaginatedEmployeeDTO } from '../dtos/paginated-employee.dto';
 import { EmployeeEntity } from '../entities/employee.entity';
+import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
 
 @Injectable()
 export class GetEmployeeUseCase {
   constructor(
     @Inject('EmployeeRepositoryContract')
     private employeeRepository: EmployeeRepositoryContract,
+    private getAllImageService: GetEmployeeImageService,
   ) {}
   private async getValuesInEmployees(
     value: string,
@@ -37,6 +39,15 @@ export class GetEmployeeUseCase {
         page,
       });
     const goal = paginateResponse({ total, page, take });
+
+    const supabaseImages = await this.getAllImageService.listFiles();
+    employees.forEach((employee) => {
+      supabaseImages.forEach((image) => {
+        if (employee.imageId === image.id) {
+          employee.imageId = image.name;
+        }
+      });
+    });
     return { employees, ...goal };
   }
 
