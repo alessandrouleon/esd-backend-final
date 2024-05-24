@@ -66,6 +66,20 @@ model Employee {
   createdAt    DateTime   @default(dbgenerated("NOW()")) @db.DateTime
   updatedAt    DateTime?  @db.DateTime
   deletedAt    DateTime?  @db.DateTime
+  TesteEsd     TesteEsd[]
 
   @@map("employees")
+}
+
+model TesteEsd {
+  id         String    @id @default(uuid())
+  boot       String    @db.Char(3)
+  bracelete  String    @db.Char(3)
+  Employee   Employee  @relation(fields: [employeeId], references: [id])
+  employeeId String
+  createdAt  DateTime  @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt  DateTime? @db.DateTime
+  deletedAt  DateTime? @db.DateTime
+
+  @@map("testes_esd")
 }

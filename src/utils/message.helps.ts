@@ -45,6 +45,12 @@ export const EmployeeMessageHelper = {
   EXIST_REGISTRATION: 'Esta matrícula já está cadastrada',
 };
 
+export const TesteEsdMessageHelper = {
+  EMPTY_BOOT: 'Preencha campo bota antiestática para realizar o teste',
+  EMPTY_BRACELETE: 'Preencha campo pulseira antiestática para realizar o teste',
+  EMPTY_EMPLOYEE_ID: 'Preencha campo id funcionário',
+};
+
 export const SupabaseValidationMessageHelper = {
   FILE_NOT_EXIST: 'Arquivo não encontrado',
   VALIDATE_FILE_TYPE: 'Apenas arquivos de tipo imagem são permitidos!',

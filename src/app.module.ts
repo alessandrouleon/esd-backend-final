@@ -6,6 +6,7 @@ import { ShiftModule } from './modules/shifts/models/shift.module';
 import { DepartmentModule } from './modules/departments/models/department.module';
 import { LineModule } from './modules/lines/models/line.module';
 import { EmployeeModule } from './modules/employees/models/employee.module';
+import { TesteEsdModule } from './modules/testeEsd/models/testeEsd.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { EmployeeModule } from './modules/employees/models/employee.module';
     DepartmentModule,
     LineModule,
     EmployeeModule,
+    TesteEsdModule,
   ],
   controllers: [],
   providers: [],
