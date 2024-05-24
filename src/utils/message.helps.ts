@@ -33,6 +33,7 @@ export const EmployeeMessageHelper = {
   ID_NOT_EXIST_FOR_UPDATE: 'Este funcionário não existe para ser alterada',
   ID_NOT_EXIST_FOR_DELETED: 'Este funcionário não existe para ser deletada',
   EMPTY_NAME: 'Preencha campo nome do funcionário',
+  REGISTRATION_NOT_EXIST: 'Matrícula incorreta ou não existe',
   EMPTY_REGISTRATION: 'Preencha campo matrícula do funcionário',
   EMPTY_BOOT: 'Preencha campo bota antiestática do funcionário',
   EMPTY_BRACELETE: 'Preencha campo pulseira antiestática do funcionário',
