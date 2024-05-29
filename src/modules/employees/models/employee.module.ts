@@ -13,7 +13,14 @@ import { LoginEmployeeUseCase } from '../useCases/login-employee.useCase';
 
 @Module({
   controllers: [EmployeeController],
-  exports: [LoginEmployeeUseCase],
+  exports: [
+    LoginEmployeeUseCase,
+
+    {
+      provide: 'EmployeeRepositoryContract',
+      useClass: EmployeeRepository,
+    },
+  ],
   providers: [
     CreateEmployeeUseCase,
     UpdateEmployeeUseCase,

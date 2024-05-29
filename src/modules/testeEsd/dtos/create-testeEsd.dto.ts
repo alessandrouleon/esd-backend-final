@@ -1,17 +1,29 @@
-import { IsString, Matches } from 'class-validator';
+import { IsEnum, IsString, Matches } from 'class-validator';
 import { EmployeeEntity } from 'src/modules/employees/entities/employee.entity';
 import { TesteEsdMessageHelper } from 'src/utils/message.helps';
+
+enum BootAndBracelete {
+  OK = 'OK',
+  NON = 'NOK',
+  NA = 'N/A',
+}
 
 export class CreateTesteEsdDto {
   id?: string;
 
   @IsString()
   @Matches(/\S/, { message: TesteEsdMessageHelper.EMPTY_BOOT })
-  boot: string;
+  @IsEnum(BootAndBracelete, {
+    message: 'O campo boot deve ser  OK, NOK ou N/A',
+  })
+  boot: BootAndBracelete;
 
   @IsString()
   @Matches(/\S/, { message: TesteEsdMessageHelper.EMPTY_BRACELETE })
-  bracelete: string;
+  @IsEnum(BootAndBracelete, {
+    message: 'O campo pulseira deve ser  OK, NOK ou N/A',
+  })
+  bracelete: BootAndBracelete;
 
   @IsString()
   @Matches(/\S/, { message: TesteEsdMessageHelper.EMPTY_EMPLOYEE_ID })

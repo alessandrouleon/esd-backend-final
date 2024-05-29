@@ -50,6 +50,10 @@ export const TesteEsdMessageHelper = {
   EMPTY_BOOT: 'Preencha campo bota antiestática para realizar o teste',
   EMPTY_BRACELETE: 'Preencha campo pulseira antiestática para realizar o teste',
   EMPTY_EMPLOYEE_ID: 'Preencha campo id funcionário',
+  BOOT_NOT_ENABLED:
+    'Sua bota antiestática não está habilitada no sistema. Por favor, procure o seu responsável.',
+  BRACELETE_NOT_ENABLED:
+    'Sua pulseira antiestática não está habilitada no sistema. Por favor, procure o seu responsável.',
 };
 
 export const SupabaseValidationMessageHelper = {
