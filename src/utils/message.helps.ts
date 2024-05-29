@@ -38,6 +38,7 @@ export const EmployeeMessageHelper = {
   EMPTY_BOOT: 'Preencha campo bota antiestática do funcionário',
   EMPTY_BRACELETE: 'Preencha campo pulseira antiestática do funcionário',
   EMPTY_STATUS: 'Preencha campo státus do funcionário',
+  EMPTY_OCCUPATION: 'Preencha campo ocupação do funcionário',
   EMPTY_SHIFT_ID: 'Preencha campo turno do funcionário',
   EMPTY_DEPARTMENT_ID: 'Preencha campo departamento do funcionário',
   EMPTY_LINE_ID: 'Preencha campo linha do funcionário',

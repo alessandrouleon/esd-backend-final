@@ -26,11 +26,13 @@ export class CreateEmployeeUseCase {
       ),
     ]);
 
-    let imageId: string = null;
-    if (data.imageId.trim()) {
+    if (!data.imageId || data.imageId.trim().length < 1) {
+      data.imageId = null;
+    }
+
+    if (data.imageId) {
       const existeEmployeeImage =
         await this.getEmployeeImageService.getSingleFile(data.imageId);
-      imageId = existeEmployeeImage.id;
 
       if (!existeEmployeeImage) {
         throw new HttpException(
@@ -38,11 +40,9 @@ export class CreateEmployeeUseCase {
           HttpStatus.BAD_REQUEST,
         );
       }
+      data.imageId = existeEmployeeImage.id;
     }
 
-    return await this.employeeRepository.createEmployee({
-      ...data,
-      imageId,
-    });
+    return await this.employeeRepository.createEmployee(data);
   }
 }

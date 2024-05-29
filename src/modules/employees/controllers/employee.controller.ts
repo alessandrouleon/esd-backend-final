@@ -21,6 +21,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { EmployeeFileDto } from '../dtos/employee-file.dto';
 import { UploadEmployeeImageService } from 'src/infrastructure/supabase/storage/service/upload-employee-image.service';
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
+import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCase';
 
 @Controller('employees')
 export class EmployeeController {
@@ -31,6 +32,7 @@ export class EmployeeController {
     private readonly getEmployeeUseCase: GetEmployeeUseCase,
     private readonly uploadEmployeeImageService: UploadEmployeeImageService,
     private readonly getAllImageService: GetEmployeeImageService,
+    private readonly getSingleEmployeeUseCase: GetSingleEmployeeUseCase,
   ) {}
 
   @Post()
@@ -76,5 +78,13 @@ export class EmployeeController {
   @Get('image/')
   async getAllEmployeeImage() {
     return await this.getAllImageService.listFiles();
+  }
+
+  @Get(':id')
+  findSingleEmployee(
+    @Param('id') id: string,
+    // @Body() updateEmployeeDto: UpdateEmployeeDto,
+  ) {
+    return this.getSingleEmployeeUseCase.getSingleEmployee(id);
   }
 }

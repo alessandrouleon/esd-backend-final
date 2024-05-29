@@ -56,6 +56,7 @@ model Employee {
   boot         String     @db.Char(3)
   bracelete    String     @db.Char(3)
   status       String     @db.Char(56)
+  occupation   String     @db.VarChar(100)
   imageId      String?    @unique @db.VarChar(256)
   Shift        Shift      @relation(fields: [shiftId], references: [id])
   shiftId      String

@@ -24,6 +24,10 @@ export class CreateEmployeeDto {
   status: string;
 
   @IsString()
+  @Matches(/\S/, { message: EmployeeMessageHelper.EMPTY_OCCUPATION })
+  occupation: string;
+
+  @IsString()
   @Matches(/\S/, { message: EmployeeMessageHelper.EMPTY_SHIFT_ID })
   shiftId: string;
 
@@ -35,7 +39,7 @@ export class CreateEmployeeDto {
   @Matches(/\S/, { message: EmployeeMessageHelper.EMPTY_LINE_ID })
   lineId: string;
 
-  imageId?: string;
+  imageId?: string | null;
   updatedAt?: Date;
   deletedAt?: Date;
 }

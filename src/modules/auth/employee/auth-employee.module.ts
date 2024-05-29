@@ -11,7 +11,7 @@ import { authEmployeeJwtConstants } from '././auth-employee.secret';
     JwtModule.register({
       global: true,
       secret: authEmployeeJwtConstants.secret,
-      signOptions: { expiresIn: '60m' },
+      signOptions: { expiresIn: '120m' },
     }),
   ],
   providers: [AuthEmployeeService],

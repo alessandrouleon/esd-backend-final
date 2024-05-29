@@ -10,6 +10,7 @@ import { GetEmployeeUseCase } from '../useCases/get-employee.useCase';
 import { UploadEmployeeImageService } from 'src/infrastructure/supabase/storage/service/upload-employee-image.service';
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
 import { LoginEmployeeUseCase } from '../useCases/login-employee.useCase';
+import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCase';
 
 @Module({
   controllers: [EmployeeController],
@@ -31,6 +32,7 @@ import { LoginEmployeeUseCase } from '../useCases/login-employee.useCase';
     UploadEmployeeImageService,
     GetEmployeeImageService,
     LoginEmployeeUseCase,
+    GetSingleEmployeeUseCase,
     {
       provide: 'EmployeeRepositoryContract',
       useClass: EmployeeRepository,

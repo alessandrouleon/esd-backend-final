@@ -7,10 +7,11 @@ export class EmployeeEntity {
   id: string;
   name: string;
   registration: string;
-  imageId?: string;
   boot: string;
   bracelete: string;
   status: string;
+  occupation: string;
+  imageId?: string;
   shift?: ShiftEntity;
   shiftId: string;
   department?: DepartmentEntity;
