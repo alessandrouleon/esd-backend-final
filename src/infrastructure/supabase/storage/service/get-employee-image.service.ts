@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { ENVIRONMENT } from 'src/infrastructure/constants/environment';
 
 @Injectable()
 export class GetEmployeeImageService {
-  //Pesquisa imagem se a imagem existe
-  async getSingleFile(file: string) {
-    const supabase = createClient(
+  private supabase: SupabaseClient;
+  private urlCache: Map<string, { url: string; expiry: number }>;
+  private idCache: Map<string, any[]>;
+
+  constructor() {
+    this.supabase = createClient(
       ENVIRONMENT.supabaseURL,
       ENVIRONMENT.supabaseKEY,
       {
@@ -15,45 +18,57 @@ export class GetEmployeeImageService {
         },
       },
     );
-    const { data } = await supabase.storage.from('esd-employee-file').list();
-    return data.find((item) => item.id === file);
+    this.urlCache = new Map();
+    this.idCache = new Map();
   }
 
-  //Pesquisa imagem por nome e retorna o path da imagem com o token
+  // Pesquisa imagem se a imagem existe
+  async getSingleFile(file: string) {
+    const { data, error } = await this.supabase.storage
+      .from('esd-employee-file')
+      .list();
+
+    if (error) {
+      throw new Error(`Error listing files: ${error.message}`);
+    }
+
+    return data.find((item) => item.id === file);
+  }
+  // Pesquisa imagen e gera o token caso existe.
   async getFile(file: string) {
-    const supabase = createClient(
-      ENVIRONMENT.supabaseURL,
-      ENVIRONMENT.supabaseKEY,
-      {
-        auth: {
-          persistSession: false,
-        },
-      },
-    );
+    const now = Date.now();
+
+    if (this.urlCache.has(file)) {
+      const cached = this.urlCache.get(file);
+      if (cached && cached.expiry > now) {
+        return cached.url;
+      }
+    }
 
     try {
-      const signedURL = await supabase.storage
+      const { data, error } = await this.supabase.storage
         .from('esd-employee-file')
         .createSignedUrl(file, 86400);
-      return signedURL.data;
+
+      if (error) {
+        throw new Error(`An error occurred: ${error.message}`);
+      }
+
+      this.urlCache.set(file, {
+        url: data.signedUrl,
+        expiry: now + 86400 * 1000,
+      });
+
+      return data.signedUrl;
     } catch (error) {
       throw new Error(`An error occurred: ${error.message}`);
     }
   }
-  //Pesquisa todas as imagem
-  async listFiles() {
-    const supabase = createClient(
-      ENVIRONMENT.supabaseURL,
-      ENVIRONMENT.supabaseKEY,
-      {
-        auth: {
-          persistSession: false,
-        },
-      },
-    );
 
+  // Pesquisa todas as imagens
+  async listFiles() {
     try {
-      const { data, error } = await supabase.storage
+      const { data, error } = await this.supabase.storage
         .from('esd-employee-file')
         .list('', {
           limit: 100,
@@ -69,20 +84,16 @@ export class GetEmployeeImageService {
       throw new Error(`An error occurred: ${error.message}`);
     }
   }
-  //Pesquisa imagem por id
+
+  // Pesquisa imagem por id
   async findBySupabaseImageId(id: string) {
-    const supabase = createClient(
-      ENVIRONMENT.supabaseURL,
-      ENVIRONMENT.supabaseKEY,
-      {
-        auth: {
-          persistSession: false,
-        },
-      },
-    );
+    // Verifica se o resultado está no cache
+    if (this.idCache.has(id)) {
+      return this.idCache.get(id);
+    }
 
     try {
-      const { data, error } = await supabase.storage
+      const { data, error } = await this.supabase.storage
         .from('esd-employee-file')
         .list('', {
           limit: 100,
@@ -92,7 +103,11 @@ export class GetEmployeeImageService {
       if (error) {
         throw new Error(`Error listing files: ${error.message}`);
       }
+
       const filteredData = data?.filter((file) => file.id === id);
+
+      // Salva o resultado no cache
+      this.idCache.set(id, filteredData);
 
       return filteredData;
     } catch (error) {

@@ -18,15 +18,14 @@ export class GetSingleEmployeeUseCase {
       const supabaseImage = await this.getAllImageService.findBySupabaseImageId(
         employeeId.imageId,
       );
-
       if (supabaseImage) {
         const supabaseImageName = supabaseImage
-          .map((item) => item.name)
+          .map((item: any) => item.name)
           .toString();
 
         const supabaseNameImage =
           await this.getAllImageService.getFile(supabaseImageName);
-        employeeId.imageId = supabaseNameImage.signedUrl;
+        employeeId.imageId = supabaseNameImage;
       }
     }
 
