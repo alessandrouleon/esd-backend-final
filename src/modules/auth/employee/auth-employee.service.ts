@@ -9,7 +9,7 @@ export class AuthEmployeeService {
     private loginEmployeeUseCase: LoginEmployeeUseCase,
     private jwtService: JwtService,
   ) {}
-  async signIn(registration: string): Promise<{ access_token: string }> {
+  async signIn(registration: string): Promise<{ token: string }> {
     if (registration.trim().length === 0) {
       throw new HttpException(
         EmployeeMessageHelper.EMPTY_REGISTRATION,
@@ -28,7 +28,7 @@ export class AuthEmployeeService {
 
     const payload = { sub: employee.id, registration: employee.registration };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      token: await this.jwtService.signAsync(payload),
     };
   }
 }
