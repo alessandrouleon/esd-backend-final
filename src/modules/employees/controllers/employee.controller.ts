@@ -83,10 +83,7 @@ export class EmployeeController {
   }
 
   @Get(':id')
-  findSingleEmployee(
-    @Param('id') id: string,
-    // @Body() updateEmployeeDto: UpdateEmployeeDto,
-  ) {
+  findSingleEmployee(@Param('id') id: string) {
     return this.getSingleEmployeeUseCase.getSingleEmployee(id);
   }
 }
