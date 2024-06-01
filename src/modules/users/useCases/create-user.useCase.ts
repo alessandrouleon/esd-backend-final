@@ -3,6 +3,7 @@ import { UserRepositoryContract } from '../repositories/user.repository.contract
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UserEntity } from '../entities/user.entity';
 import { UserMessageHelper } from 'src/utils/message.helps';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -30,6 +31,15 @@ export class CreateUserUseCase {
         HttpStatus.BAD_REQUEST,
       );
     }
-    return await this.userRepository.createUser(data);
+
+    const hashedUserPassword = await bcrypt.hash(
+      data.password,
+      Number(process.env.BCRYPTROUNDS),
+    );
+
+    return await this.userRepository.createUser({
+      ...data,
+      password: hashedUserPassword,
+    });
   }
 }

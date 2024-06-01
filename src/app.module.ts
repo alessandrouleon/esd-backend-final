@@ -7,9 +7,7 @@ import { DepartmentModule } from './modules/departments/models/department.module
 import { LineModule } from './modules/lines/models/line.module';
 import { EmployeeModule } from './modules/employees/models/employee.module';
 import { TesteEsdModule } from './modules/testeEsd/models/testeEsd.module';
-import { AuthEmployeeModule } from './modules/auth/employee/auth-employee.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthEmployeeGuard } from './modules/auth/employee/auth-employee.guard';
+import { AuthModule } from './modules/auth/model/auth.module';
 import { UserModule } from './modules/users/models/user.module';
 
 @Module({
@@ -20,16 +18,11 @@ import { UserModule } from './modules/users/models/user.module';
     DepartmentModule,
     LineModule,
     EmployeeModule,
-    AuthEmployeeModule,
+    AuthModule,
     TesteEsdModule,
     UserModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthEmployeeGuard,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}

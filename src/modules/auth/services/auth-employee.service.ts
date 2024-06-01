@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { LoginEmployeeUseCase } from '../../employees/useCases/login-employee.useCase';
+import { LoginEmployeeUseCase } from 'src/modules/employees/useCases/login-employee.useCase';
 import { EmployeeMessageHelper } from 'src/utils/message.helps';
 
 @Injectable()

@@ -6,12 +6,12 @@ import { UpdateUserUseCase } from '../useCases/update-user.useCase';
 import { ValidateUserUpdateService } from '../services/validate-user-update.service';
 import { DeleteUserUseCase } from '../useCases/delete-user.useCase';
 import { GetUserUseCase } from '../useCases/get-user.useCase';
+import { LoginUserUseCase } from '../useCases/login-user.useCase';
 
 @Module({
   controllers: [UserController],
   exports: [
-    // LoginUserUseCase,
-
+    LoginUserUseCase,
     {
       provide: 'UserRepositoryContract',
       useClass: UserRepository,
@@ -23,6 +23,7 @@ import { GetUserUseCase } from '../useCases/get-user.useCase';
     DeleteUserUseCase,
     GetUserUseCase,
     ValidateUserUpdateService,
+    LoginUserUseCase,
     {
       provide: 'UserRepositoryContract',
       useClass: UserRepository,
