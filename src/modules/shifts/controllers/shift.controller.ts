@@ -15,6 +15,7 @@ import { UpdateShiftDto } from '../dtos/update-shift.dto';
 import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetShiftUseCase } from '../useCases/get-shift.useCase';
+import { Public } from 'src/modules/auth/public';
 
 @Controller('shifts')
 export class ShiftController {
@@ -26,6 +27,7 @@ export class ShiftController {
   ) {}
 
   @Post()
+  @Public()
   create(@Body() createShiftDto: CreateShiftDto) {
     return this.createShiftUseCase.execute(createShiftDto);
   }

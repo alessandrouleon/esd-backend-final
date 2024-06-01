@@ -10,6 +10,7 @@ import { TesteEsdModule } from './modules/testeEsd/models/testeEsd.module';
 import { AuthEmployeeModule } from './modules/auth/employee/auth-employee.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthEmployeeGuard } from './modules/auth/employee/auth-employee.guard';
+import { UserModule } from './modules/users/models/user.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthEmployeeGuard } from './modules/auth/employee/auth-employee.guard';
     EmployeeModule,
     AuthEmployeeModule,
     TesteEsdModule,
+    UserModule,
   ],
   controllers: [],
   providers: [

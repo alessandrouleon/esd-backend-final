@@ -57,6 +57,22 @@ export const TesteEsdMessageHelper = {
     'Sua pulseira antiestática não está habilitada no sistema. Por favor, procure o seu responsável.',
 };
 
+export const UserMessageHelper = {
+  ID_NOT_EXIST: 'Este usuário não existe',
+  ID_NOT_EXIST_FOR_UPDATE: 'Este usuário não existe para ser alterada',
+  ID_NOT_EXIST_FOR_DELETED: 'Este usuário não existe para ser deletada',
+  EMPTY_USERNAME: 'Preencha campo nome do usuário',
+  EMPTY_PASSWORD: 'Senha incorreta ou não existe',
+  EMPTY_ROLES: 'Preencha campo permissão do usuário',
+  EMPTY_STATUS: 'Preencha campo státus do usuário',
+  EMPTY_EMPLOYEE_ID: 'Preencha campo id do funcionario',
+
+  USER_DOES_NOT_EXIST: 'Usuário ou senha não existe',
+  EXIST_USERNAME: 'Este nome de usuário já está cadastrada',
+  ID_EMPLOYEE_NOT_EXIST: 'Não existe funcionario com este ID',
+  ID_EMPLOYEE_DIFERENT: 'ID do funcionario é unico, no cadastro de usuário',
+};
+
 export const SupabaseValidationMessageHelper = {
   FILE_NOT_EXIST: 'Arquivo não encontrado',
   VALIDATE_FILE_TYPE: 'Apenas arquivos de tipo imagem são permitidos!',

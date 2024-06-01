@@ -15,6 +15,7 @@ import { UpdateDepartmentDto } from '../dtos/update-department.dto';
 import { DeleteDepartmentUseCase } from '../useCases/delete-department.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetDepartmentUseCase } from '../useCases/get-department.useCase';
+import { Public } from 'src/modules/auth/public';
 
 @Controller('departments')
 export class DepartmentController {
@@ -26,6 +27,7 @@ export class DepartmentController {
   ) {}
 
   @Post()
+  @Public()
   create(@Body() createDepartmentDto: CreateDepartmentDto) {
     return this.createDepartmentUseCase.execute(createDepartmentDto);
   }

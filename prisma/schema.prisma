@@ -68,6 +68,7 @@ model Employee {
   updatedAt    DateTime?  @db.DateTime
   deletedAt    DateTime?  @db.DateTime
   TesteEsd     TesteEsd[]
+  User         User[]
 
   @@map("employees")
 }
@@ -83,4 +84,19 @@ model TesteEsd {
   deletedAt  DateTime? @db.DateTime
 
   @@map("testes_esd")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  username   String    @unique @db.VarChar(56)
+  password   String    @db.VarChar(256)
+  status     String    @db.Char(56)
+  roles      String    @db.VarChar(256)
+  Employee   Employee  @relation(fields: [employeeId], references: [id])
+  employeeId String
+  createdAt  DateTime  @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt  DateTime? @db.DateTime
+  deletedAt  DateTime? @db.DateTime
+
+  @@map("users")
 }

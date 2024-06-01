@@ -22,6 +22,7 @@ import { EmployeeFileDto } from '../dtos/employee-file.dto';
 import { UploadEmployeeImageService } from 'src/infrastructure/supabase/storage/service/upload-employee-image.service';
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
 import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCase';
+import { Public } from 'src/modules/auth/public';
 
 @Controller('employees')
 export class EmployeeController {
@@ -36,6 +37,7 @@ export class EmployeeController {
   ) {}
 
   @Post()
+  @Public()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.createEmployeeUseCase.execute(createEmployeeDto);
   }
