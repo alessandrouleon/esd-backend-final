@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserUseCase } from '../useCases/create-user.useCase';
 import { CreateUserDto } from '../dtos/create-user.dto';
-import { Public } from 'src/modules/auth/public';
 
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UpdateUserUseCase } from '../useCases/update-user.useCase';
@@ -28,25 +27,21 @@ export class UserController {
   ) {}
 
   @Post()
-  @Public()
   create(@Body() createUserDto: CreateUserDto) {
     return this.createUserUseCase.execute(createUserDto);
   }
 
   @Patch(':id')
-  @Public()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.updateUserUseCase.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  @Public()
   delete(@Param('id') id: string) {
     return this.deleteUserUseCase.delete(id);
   }
 
   @Get('/search/:page')
-  @Public()
   async findSearch(
     @Param('page') page: number,
     @Query() search: SearchValueInColumn,

@@ -15,7 +15,6 @@ import { UpdateLineDto } from '../dtos/update-line.dto';
 import { DeleteLineUseCase } from '../useCases/delete-line.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetLineUseCase } from '../useCases/get-line.useCase';
-import { Public } from 'src/modules/auth/public';
 
 @Controller('lines')
 export class LineController {
@@ -27,7 +26,6 @@ export class LineController {
   ) {}
 
   @Post()
-  @Public()
   create(@Body() createLineDto: CreateLineDto) {
     return this.createLineUseCase.execute(createLineDto);
   }

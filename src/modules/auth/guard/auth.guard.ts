@@ -5,13 +5,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { authEmployeeJwtConstants } from '../constants/auth-employee.secret';
+import { jwtConstants } from '../constants/auth-user.secret';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../public';
 
 @Injectable()
-export class AuthEmployeeGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,
@@ -27,18 +27,24 @@ export class AuthEmployeeGuard implements CanActivate {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
       throw new UnauthorizedException();
     }
+
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: authEmployeeJwtConstants.secret,
+        secret: jwtConstants.secret,
       });
-      request['employee'] = payload;
-    } catch {
+
+      if (!payload.username) {
+        throw new UnauthorizedException();
+      }
+
+      request['user'] = payload;
+    } catch (error) {
       throw new UnauthorizedException();
     }
     return true;
