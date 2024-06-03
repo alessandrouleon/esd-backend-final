@@ -84,7 +84,7 @@ async function main() {
     {
       id: '01',
       username: 'admin',
-      password: '$2b$10$5T/6KSniGHznZyXdBTMOVetp4FrrADIMU/kxDJpYg9rXQUNNfTMBC',
+      password: '$2b$10$wlI0Zq7IoP2QS8UP25BoWe0rnfLTUESZE.GJ0nEET.lgvsyzu8V9K',
       status: 'ativo',
       roles: 'full',
       employeeId: '01',

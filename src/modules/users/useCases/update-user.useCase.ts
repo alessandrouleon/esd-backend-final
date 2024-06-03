@@ -5,6 +5,7 @@ import { UserEntity } from '../entities/user.entity';
 import { UserMessageHelper } from 'src/utils/message.helps';
 import { newDate } from 'src/utils/date';
 import { ValidateUserUpdateService } from '../services/validate-user-update.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UpdateUserUseCase {
@@ -35,9 +36,15 @@ export class UpdateUserUseCase {
       ),
     ]);
 
+    const hashedUserPassword = await bcrypt.hash(
+      data.password,
+      Number(process.env.BCRYPTROUNDS),
+    );
+
     return await this.userRepository.updateUser(id, {
       ...data,
       updatedAt: newDate(),
+      password: hashedUserPassword,
     });
   }
 }
