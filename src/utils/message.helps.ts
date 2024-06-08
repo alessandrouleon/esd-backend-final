@@ -72,6 +72,7 @@ export const UserMessageHelper = {
   ID_EMPLOYEE_NOT_EXIST: 'Não existe funcionario com este ID',
   ID_EMPLOYEE_DIFERENT: 'ID do funcionario é unico, no cadastro de usuário',
   INVALID_CREDENTIALS: 'JWT user invalido',
+  INVALID_USERNAME_OR_PASSWORD: 'usuário o senha inválida',
 };
 
 export const SupabaseValidationMessageHelper = {

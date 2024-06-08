@@ -10,10 +10,7 @@ export class AuthUserService {
     private loginUseUseCase: LoginUserUseCase,
     private jwtService: JwtService,
   ) {}
-  async signIn(
-    username: string,
-    pass: string,
-  ): Promise<{ access_token: string }> {
+  async signIn(username: string, pass: string): Promise<{ token: string }> {
     const user = await this.loginUseUseCase.authUsername(username);
     const isPasswordValid = await bcrypt.compare(pass, user.password);
 
@@ -22,7 +19,7 @@ export class AuthUserService {
     }
     const payload = { sub: user.id, username: user.username };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      token: await this.jwtService.signAsync(payload),
     };
   }
 }
