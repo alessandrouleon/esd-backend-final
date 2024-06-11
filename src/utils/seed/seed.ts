@@ -100,7 +100,7 @@ async function main() {
       bracelete: 'OK',
       status: 'ativo',
       occupation: 'Dev TI',
-      imageId: null,
+      imageId: 'c88f7740-74f7-496f-82e6-1899c7300600',
       shiftId: '01',
       departmentId: '01',
       lineId: '01',

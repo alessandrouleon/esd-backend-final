@@ -14,11 +14,12 @@ import { AuthController } from '../controllers/auth.controller';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1D' },
+      signOptions: { expiresIn: '60s' },
     }),
     EmployeeModule,
   ],
   providers: [AuthUserService, AuthEmployeeService, AuthGuard],
   controllers: [AuthController],
+  exports: [AuthUserService],
 })
 export class AuthModule {}
