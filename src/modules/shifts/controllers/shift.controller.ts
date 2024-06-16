@@ -47,4 +47,9 @@ export class ShiftController {
   ) {
     return this.getShiftUseCase.getShifts(search, page);
   }
+
+  @Get('/allShift')
+  async findAllNotPaginated() {
+    return this.getShiftUseCase.getAllShiftsNotPagination();
+  }
 }

@@ -98,4 +98,14 @@ export class ShiftRepository implements ShiftRepositoryContract {
     const total = data.length;
     return { shifts: data, total };
   }
+
+  public async findAllShiftsNotPagination(): Promise<ShiftEntity[] | null> {
+    const shifts = await this.repository.shift.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+    });
+    return shifts;
+  }
 }

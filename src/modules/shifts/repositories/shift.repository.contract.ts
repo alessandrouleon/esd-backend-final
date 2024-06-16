@@ -22,4 +22,5 @@ export interface ShiftRepositoryContract {
   findAllShiftsWithPagination(
     parametersToPaginate: PaginatedData,
   ): Promise<IShiftReturnWithPagination>;
+  findAllShiftsNotPagination(): Promise<ShiftEntity[] | null>;
 }

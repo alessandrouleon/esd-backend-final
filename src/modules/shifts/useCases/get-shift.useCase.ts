@@ -48,4 +48,8 @@ export class GetShiftUseCase {
     if (!value) return this.getAllShiftPaginated({ page, skip, take });
     if (value) return this.getValuesInShifts(value, { page, skip, take });
   }
+
+  public async getAllShiftsNotPagination() {
+    return await this.repositoryShift.findAllShiftsNotPagination();
+  }
 }
