@@ -7,6 +7,7 @@ import { UpdateShiftUseCase } from '../useCases/update-shift.useCase';
 import { DeleteShiftUseCase } from '../useCases/delete-shift.useCase';
 import { GetShiftUseCase } from '../useCases/get-shift.useCase';
 import { ValidateShiftUpdateService } from '../services/validate-shift.update.service';
+import { UploadShiftUseCase } from '../useCases/upload-shift.useCase';
 
 @Module({
   controllers: [ShiftController],
@@ -16,6 +17,7 @@ import { ValidateShiftUpdateService } from '../services/validate-shift.update.se
     UpdateShiftUseCase,
     DeleteShiftUseCase,
     GetShiftUseCase,
+    UploadShiftUseCase,
     ValidateShiftCreateService,
     ValidateShiftUpdateService,
     {
