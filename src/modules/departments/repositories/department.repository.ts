@@ -105,4 +105,16 @@ export class DepartmentRepository implements DepartmentRepositoryContract {
     const total = data.length;
     return { departments: data, total };
   }
+
+  public async findAllDepartmentsNotPagination(): Promise<
+    DepartmentEntity[] | null
+  > {
+    const departments = await this.repository.department.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+    });
+    return departments;
+  }
 }

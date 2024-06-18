@@ -25,4 +25,5 @@ export interface DepartmentRepositoryContract {
   findAllDepartmentWithPagination(
     parametersToPaginate: PaginatedData,
   ): Promise<IDepartmentReturnWithPagination>;
+  findAllDepartmentsNotPagination(): Promise<DepartmentEntity[] | null>;
 }

@@ -7,6 +7,7 @@ import { UpdateDepartmentUseCase } from '../useCases/update-department.useCase';
 import { DeleteDepartmentUseCase } from '../useCases/delete-department.useCase';
 import { GetDepartmentUseCase } from '../useCases/get-department.useCase';
 import { ValidateDepartmentUpdateService } from '../services/validate-department.update.service';
+import { UploadDepartmentUseCase } from '../useCases/upload-department.useCase';
 
 @Module({
   controllers: [DepartmentController],
@@ -16,6 +17,7 @@ import { ValidateDepartmentUpdateService } from '../services/validate-department
     UpdateDepartmentUseCase,
     DeleteDepartmentUseCase,
     GetDepartmentUseCase,
+    UploadDepartmentUseCase,
     ValidateDepartmentCreateService,
     ValidateDepartmentUpdateService,
     {

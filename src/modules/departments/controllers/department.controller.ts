@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateDepartmentUseCase } from '../useCases/create-department.useCase';
 import { CreateDepartmentDto } from '../dtos/create-department.dto';
@@ -15,6 +17,8 @@ import { UpdateDepartmentDto } from '../dtos/update-department.dto';
 import { DeleteDepartmentUseCase } from '../useCases/delete-department.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetDepartmentUseCase } from '../useCases/get-department.useCase';
+import { UploadDepartmentUseCase } from '../useCases/upload-department.useCase';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('departments')
 export class DepartmentController {
@@ -23,6 +27,7 @@ export class DepartmentController {
     private readonly updateDepartmentUseCase: UpdateDepartmentUseCase,
     private readonly deleteDepartmentUseCase: DeleteDepartmentUseCase,
     private readonly getDepartmentUseCase: GetDepartmentUseCase,
+    private readonly uploadDepartmentUseCase: UploadDepartmentUseCase,
   ) {}
 
   @Post()
@@ -49,5 +54,19 @@ export class DepartmentController {
     @Query() search: SearchValueInColumn,
   ) {
     return this.getDepartmentUseCase.getAllDepartments(search, page);
+  }
+
+  @Get('/allDepartment')
+  async findAllNotPaginated() {
+    return this.getDepartmentUseCase.getAllDepartmentsNotPagination();
+  }
+
+  @Post('upload/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFilexls(
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+    return this.uploadDepartmentUseCase.parseExcelFile(file);
   }
 }

@@ -51,4 +51,8 @@ export class GetDepartmentUseCase {
     if (!value) return this.getAllDepartmentPaginated({ page, skip, take });
     if (value) return this.getValuesInDepartment(value, { page, skip, take });
   }
+
+  public async getAllDepartmentsNotPagination() {
+    return await this.departmentRepository.findAllDepartmentsNotPagination();
+  }
 }
