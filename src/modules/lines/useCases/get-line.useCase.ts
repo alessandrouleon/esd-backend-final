@@ -48,4 +48,8 @@ export class GetLineUseCase {
     if (!value) return this.getAllLinePaginated({ page, skip, take });
     if (value) return this.getValuesInLines(value, { page, skip, take });
   }
+
+  public async getAllLinesNotPagination() {
+    return await this.lineRepository.findAllLinesNotPagination();
+  }
 }

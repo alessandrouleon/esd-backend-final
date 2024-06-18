@@ -98,4 +98,14 @@ export class LineRepository implements LineRepositoryContract {
     const total = data.length;
     return { lines: data, total };
   }
+
+  public async findAllLinesNotPagination(): Promise<LineEntity[] | null> {
+    const lines = await this.repository.line.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+    });
+    return lines;
+  }
 }

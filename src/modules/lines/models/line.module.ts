@@ -7,6 +7,7 @@ import { UpdateLineUseCase } from '../useCases/update-line.useCase';
 import { DeleteLineUseCase } from '../useCases/delete-line.useCase';
 import { GetLineUseCase } from '../useCases/get-line.useCase';
 import { ValidateLineCreateService } from '../services/validate-line.create.service';
+import { UploadLineUseCase } from '../useCases/upload-line.useCase';
 
 @Module({
   controllers: [LineController],
@@ -16,6 +17,7 @@ import { ValidateLineCreateService } from '../services/validate-line.create.serv
     UpdateLineUseCase,
     DeleteLineUseCase,
     GetLineUseCase,
+    UploadLineUseCase,
     ValidateLineCreateService,
     ValidateLineUpdateService,
     {

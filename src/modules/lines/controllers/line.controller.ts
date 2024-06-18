@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateLineUseCase } from '../useCases/create-line.useCase';
 import { CreateLineDto } from '../dtos/create-line.dto';
@@ -15,6 +17,8 @@ import { UpdateLineDto } from '../dtos/update-line.dto';
 import { DeleteLineUseCase } from '../useCases/delete-line.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetLineUseCase } from '../useCases/get-line.useCase';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadLineUseCase } from '../useCases/upload-line.useCase';
 
 @Controller('lines')
 export class LineController {
@@ -23,6 +27,7 @@ export class LineController {
     private readonly updateLineUseCase: UpdateLineUseCase,
     private readonly deleteLineUseCase: DeleteLineUseCase,
     private readonly getLineUseCase: GetLineUseCase,
+    private readonly uploadLineUseCase: UploadLineUseCase,
   ) {}
 
   @Post()
@@ -46,5 +51,19 @@ export class LineController {
     @Query() search: SearchValueInColumn,
   ) {
     return this.getLineUseCase.getLines(search, page);
+  }
+
+  @Get('/allLines')
+  async findAllNotPaginated() {
+    return this.getLineUseCase.getAllLinesNotPagination();
+  }
+
+  @Post('upload/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFilexls(
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+    return this.uploadLineUseCase.parseExcelFile(file);
   }
 }

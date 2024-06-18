@@ -22,4 +22,5 @@ export interface LineRepositoryContract {
   findAllLineWithPagination(
     parametersToPaginate: PaginatedData,
   ): Promise<ILineReturnWithPagination>;
+  findAllLinesNotPagination(): Promise<LineEntity[] | null>;
 }
