@@ -164,4 +164,21 @@ export class EmployeeRepository implements EmployeeRepositoryContract {
     ]);
     return { employees: data, total };
   }
+
+  public async findAllEmployeesNotPagination(): Promise<
+    EmployeeEntity[] | null
+  > {
+    const employees = await this.repository.employee.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+      include: {
+        Shift: true,
+        Department: true,
+        Line: true,
+      },
+    });
+    return employees;
+  }
 }

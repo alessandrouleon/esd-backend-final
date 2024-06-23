@@ -6,15 +6,6 @@ interface SeedProps {
   description: string;
 }
 
-interface UserProps {
-  id: string;
-  username: string;
-  password: string;
-  status: string;
-  roles: string;
-  employeeId: string;
-}
-
 interface EmployeeProps {
   id: string;
   name: string;
@@ -27,6 +18,15 @@ interface EmployeeProps {
   shiftId: string;
   departmentId: string;
   lineId: string;
+}
+
+interface UserProps {
+  id: string;
+  username: string;
+  password: string;
+  status: string;
+  roles: string;
+  employeeId: string;
 }
 
 const prisma = new PrismaClient();
@@ -100,7 +100,7 @@ async function main() {
       bracelete: 'OK',
       status: 'ativo',
       occupation: 'Dev TI',
-      imageId: 'c88f7740-74f7-496f-82e6-1899c7300600',
+      imageId: 'b8ab21dc-ef3c-4cc7-b3e9-b2e2a16268fe',
       shiftId: '01',
       departmentId: '01',
       lineId: '01',

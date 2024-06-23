@@ -81,6 +81,11 @@ export class EmployeeController {
     return await this.getAllImageService.listFiles();
   }
 
+  @Get('/allEmployee')
+  async findAllEmployeeNotPaginateds() {
+    return this.getEmployeeUseCase.getAllEmployeeNotPagination();
+  }
+
   @Get(':id')
   @Public()
   findSingleEmployee(@Param('id') id: string) {

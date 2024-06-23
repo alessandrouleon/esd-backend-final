@@ -59,4 +59,19 @@ export class GetEmployeeUseCase {
     if (!value) return this.getAllEmployeesPaginated({ page, skip, take });
     if (value) return this.getValuesInEmployees(value, { page, skip, take });
   }
+
+  public async getAllEmployeeNotPagination() {
+    const employees =
+      await this.employeeRepository.findAllEmployeesNotPagination();
+    const supabaseImages = await this.getAllImageService.listFiles();
+
+    employees.forEach((employee) => {
+      supabaseImages.forEach((image) => {
+        if (employee.imageId === image.id) {
+          employee.imageId = image.name;
+        }
+      });
+    });
+    return { employees };
+  }
 }

@@ -28,4 +28,5 @@ export interface EmployeeRepositoryContract {
   findAllEmployeesWithPagination(
     parametersToPaginate: PaginatedData,
   ): Promise<IEmployeeReturnWithPagination | null>;
+  findAllEmployeesNotPagination(): Promise<EmployeeEntity[] | null>;
 }
