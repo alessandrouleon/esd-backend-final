@@ -23,6 +23,7 @@ import { UploadEmployeeImageService } from 'src/infrastructure/supabase/storage/
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
 import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCase';
 import { Public } from 'src/modules/auth/public';
+import { UploadEmployeeUseCase } from '../useCases/upload-employee.useCase';
 
 @Controller('employees')
 export class EmployeeController {
@@ -34,6 +35,7 @@ export class EmployeeController {
     private readonly uploadEmployeeImageService: UploadEmployeeImageService,
     private readonly getAllImageService: GetEmployeeImageService,
     private readonly getSingleEmployeeUseCase: GetSingleEmployeeUseCase,
+    private readonly uploadEmployeeUseCase: UploadEmployeeUseCase,
   ) {}
 
   @Post()
@@ -90,6 +92,15 @@ export class EmployeeController {
   @Get('single-image/:file')
   async getSingleEmployeeImage(@Param('file') file: string) {
     return await this.getAllImageService.getSingleFile(file);
+  }
+
+  @Post('upload/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFilexls(
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+    return this.uploadEmployeeUseCase.parseExcelFile(file);
   }
 
   @Get(':id')

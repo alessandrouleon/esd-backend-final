@@ -11,6 +11,10 @@ import { UploadEmployeeImageService } from 'src/infrastructure/supabase/storage/
 import { GetEmployeeImageService } from 'src/infrastructure/supabase/storage/service/get-employee-image.service';
 import { LoginEmployeeUseCase } from '../useCases/login-employee.useCase';
 import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCase';
+import { UploadEmployeeUseCase } from '../useCases/upload-employee.useCase';
+import { DepartmentModule } from 'src/modules/departments/models/department.module';
+import { ShiftModule } from 'src/modules/shifts/models/shift.module';
+import { LineModule } from 'src/modules/lines/models/line.module';
 
 @Module({
   controllers: [EmployeeController],
@@ -30,6 +34,7 @@ import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCas
     ValidatesEmployeeCreateService,
     ValidatesEmployeeUpdateService,
     UploadEmployeeImageService,
+    UploadEmployeeUseCase,
     GetEmployeeImageService,
     LoginEmployeeUseCase,
     GetSingleEmployeeUseCase,
@@ -38,5 +43,6 @@ import { GetSingleEmployeeUseCase } from '../useCases/get-single-employee.useCas
       useClass: EmployeeRepository,
     },
   ],
+  imports: [DepartmentModule, ShiftModule, LineModule],
 })
 export class EmployeeModule {}

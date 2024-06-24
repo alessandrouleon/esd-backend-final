@@ -11,7 +11,12 @@ import { UploadShiftUseCase } from '../useCases/upload-shift.useCase';
 
 @Module({
   controllers: [ShiftController],
-  exports: [],
+  exports: [
+    {
+      provide: 'ShiftRepositoryContract',
+      useClass: ShiftRepository,
+    },
+  ],
   providers: [
     CreateShiftUseCase,
     UpdateShiftUseCase,

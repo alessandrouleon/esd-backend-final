@@ -11,7 +11,12 @@ import { UploadLineUseCase } from '../useCases/upload-line.useCase';
 
 @Module({
   controllers: [LineController],
-  exports: [],
+  exports: [
+    {
+      provide: 'LineRepositoryContract',
+      useClass: LineRepository,
+    },
+  ],
   providers: [
     CreateLineUseCase,
     UpdateLineUseCase,

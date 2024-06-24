@@ -11,7 +11,12 @@ import { UploadDepartmentUseCase } from '../useCases/upload-department.useCase';
 
 @Module({
   controllers: [DepartmentController],
-  exports: [],
+  exports: [
+    {
+      provide: 'DepartmentRepositoryContract',
+      useClass: DepartmentRepository,
+    },
+  ],
   providers: [
     CreateDepartmentUseCase,
     UpdateDepartmentUseCase,
