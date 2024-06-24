@@ -39,15 +39,6 @@ export class GetEmployeeUseCase {
         page,
       });
     const goal = paginateResponse({ total, page, take });
-
-    const supabaseImages = await this.getAllImageService.listFiles();
-    employees.forEach((employee) => {
-      supabaseImages.forEach((image) => {
-        if (employee.imageId === image.id) {
-          employee.imageId = image.name;
-        }
-      });
-    });
     return { employees, ...goal };
   }
 

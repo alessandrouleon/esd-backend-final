@@ -31,7 +31,6 @@ export class GetEmployeeImageService {
     if (error) {
       throw new Error(`Error listing files: ${error.message}`);
     }
-
     return data.find((item) => item.id === file);
   }
   // Pesquisa imagen e gera o token caso existe.

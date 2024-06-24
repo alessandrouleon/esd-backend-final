@@ -86,6 +86,12 @@ export class EmployeeController {
     return this.getEmployeeUseCase.getAllEmployeeNotPagination();
   }
 
+  ///endpoint usado para teste
+  @Get('single-image/:file')
+  async getSingleEmployeeImage(@Param('file') file: string) {
+    return await this.getAllImageService.getSingleFile(file);
+  }
+
   @Get(':id')
   @Public()
   findSingleEmployee(@Param('id') id: string) {
