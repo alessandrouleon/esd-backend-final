@@ -86,9 +86,20 @@ export class UserRepository implements UserRepositoryContract {
           ],
           deletedAt: null,
         },
-        include: {
+        select: {
+          id: true,
+          username: true,
+          status: true,
+          roles: true,
+          employeeId: true,
+          createdAt: true,
+          updatedAt: true,
+          deletedAt: true,
           Employee: true,
         },
+        // include: {
+        //   Employee: true,
+        // },
       }),
     ]);
     const total = data.length;
@@ -107,9 +118,20 @@ export class UserRepository implements UserRepositoryContract {
           createdAt: 'desc',
         },
         where: { deletedAt: null },
-        include: {
+        select: {
+          id: true,
+          username: true,
+          status: true,
+          roles: true,
+          employeeId: true,
+          createdAt: true,
+          updatedAt: true,
+          deletedAt: true,
           Employee: true,
         },
+        // include: {
+        //   Employee: true,
+        // },
       }),
       this.repository.user.count({ where: { deletedAt: null } }),
     ]);

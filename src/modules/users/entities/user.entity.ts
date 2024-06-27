@@ -2,7 +2,7 @@ import { randomUUID as uuid } from 'crypto';
 export class UserEntity {
   id: string;
   username: string;
-  password: string;
+  password?: string;
   status: string;
   roles: string;
   employeeId?: string;

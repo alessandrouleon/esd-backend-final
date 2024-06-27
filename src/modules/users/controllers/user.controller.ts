@@ -16,6 +16,7 @@ import { UpdateUserUseCase } from '../useCases/update-user.useCase';
 import { DeleteUserUseCase } from '../useCases/delete-user.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetUserUseCase } from '../useCases/get-user.useCase';
+import { Public } from 'src/modules/auth/public';
 
 @Controller('users')
 export class UserController {
@@ -32,6 +33,7 @@ export class UserController {
   }
 
   @Patch(':id')
+  @Public()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.updateUserUseCase.update(id, updateUserDto);
   }
