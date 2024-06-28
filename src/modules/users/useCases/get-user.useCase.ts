@@ -49,4 +49,13 @@ export class GetUserUseCase {
     if (!value) return this.getAllUsersPaginated({ page, skip, take });
     if (value) return this.getValuesInUsers(value, { page, skip, take });
   }
+
+  public async getSingleUser(id: string): Promise<UserEntity> {
+    return await this.userRepository.findByUserId(id);
+  }
+
+  public async getAllUsersNotPagination() {
+    const users = await this.userRepository.findAllUsersNotPagination();
+    return { users };
+  }
 }

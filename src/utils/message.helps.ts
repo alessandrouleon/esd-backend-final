@@ -63,6 +63,7 @@ export const UserMessageHelper = {
   ID_NOT_EXIST_FOR_DELETED: 'Este usuário não existe para ser deletada',
   EMPTY_USERNAME: 'Preencha campo nome do usuário',
   EMPTY_PASSWORD: 'Senha incorreta ou não existe',
+  EMPTY_PASSWORD_UPDATE: 'Senha não pode ser vazio',
   EMPTY_ROLES: 'Preencha campo permissão do usuário',
   EMPTY_STATUS: 'Preencha campo státus do usuário',
   EMPTY_EMPLOYEE_ID: 'Preencha campo id do funcionario',

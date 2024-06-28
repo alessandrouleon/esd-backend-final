@@ -16,7 +16,9 @@ import { UpdateUserUseCase } from '../useCases/update-user.useCase';
 import { DeleteUserUseCase } from '../useCases/delete-user.useCase';
 import { SearchValueInColumn } from 'src/utils/pagination';
 import { GetUserUseCase } from '../useCases/get-user.useCase';
-import { Public } from 'src/modules/auth/public';
+// import { Public } from 'src/modules/auth/public';
+import { UpdateUserPasswordUseCase } from '../useCases/update-user-password.useCase';
+import { UpdateUserPasswordDto } from '../dtos/update-user-password.dto';
 
 @Controller('users')
 export class UserController {
@@ -25,6 +27,7 @@ export class UserController {
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly deleteUserUseCase: DeleteUserUseCase,
     private readonly getUserUseCase: GetUserUseCase,
+    private readonly updateUserPasswordUseCase: UpdateUserPasswordUseCase,
   ) {}
 
   @Post()
@@ -33,9 +36,20 @@ export class UserController {
   }
 
   @Patch(':id')
-  @Public()
+  // @Public()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.updateUserUseCase.update(id, updateUserDto);
+  }
+
+  @Patch('update/password/:id')
+  async updatePassword(
+    @Param('id') id: string,
+    @Body() updateUserPasswordDto: UpdateUserPasswordDto,
+  ) {
+    return this.updateUserPasswordUseCase.updatePassword(
+      id,
+      updateUserPasswordDto,
+    );
   }
 
   @Delete(':id')
@@ -49,5 +63,15 @@ export class UserController {
     @Query() search: SearchValueInColumn,
   ) {
     return this.getUserUseCase.getUsers(search, page);
+  }
+
+  @Get('/allUsers')
+  async findAllUsersNotPaginateds() {
+    return this.getUserUseCase.getAllUsersNotPagination();
+  }
+
+  @Get(':id')
+  findSingleUser(@Param('id') id: string) {
+    return this.getUserUseCase.getSingleUser(id);
   }
 }

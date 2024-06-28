@@ -3,6 +3,7 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { PaginatedData } from 'src/utils/pagination';
 import { EmployeeEntity } from 'src/modules/employees/entities/employee.entity';
+import { UpdateUserPasswordDto } from '../dtos/update-user-password.dto';
 
 export interface IUserReturnWithPagination {
   users: UserEntity[];
@@ -16,6 +17,10 @@ export interface UserRepositoryContract {
   findByUserId(id: string): Promise<UserEntity | null>;
   findByEmployeeId(id: string): Promise<EmployeeEntity | null>;
   updateUser(id: string, data: UpdateUserDto): Promise<UserEntity>;
+  updateUserPassword(
+    id: string,
+    data: UpdateUserPasswordDto,
+  ): Promise<UserEntity>;
   deleteUser(id: string, data: UpdateUserDto): Promise<UserEntity>;
   findFilteredUsersWithPagination(
     value: string,
@@ -24,4 +29,5 @@ export interface UserRepositoryContract {
   findAllUsersWithPagination(
     parametersToPaginate: PaginatedData,
   ): Promise<IUserReturnWithPagination | null>;
+  findAllUsersNotPagination(): Promise<UserEntity[] | null>;
 }

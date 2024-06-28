@@ -9,6 +9,7 @@ import { PaginatedData } from 'src/utils/pagination';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
+import { UpdateUserPasswordDto } from '../dtos/update-user-password.dto';
 
 @Injectable()
 export class UserRepository implements UserRepositoryContract {
@@ -27,6 +28,17 @@ export class UserRepository implements UserRepositoryContract {
       data,
     });
   }
+
+  public async updateUserPassword(
+    id: string,
+    data: UpdateUserPasswordDto,
+  ): Promise<UserEntity> {
+    return await this.repository.user.update({
+      where: { id, deletedAt: null },
+      data: { password: data.password },
+    });
+  }
+
   public async deleteUser(
     id: string,
     data: UpdateUserDto,
@@ -136,5 +148,26 @@ export class UserRepository implements UserRepositoryContract {
       this.repository.user.count({ where: { deletedAt: null } }),
     ]);
     return { users: data, total };
+  }
+
+  public async findAllUsersNotPagination(): Promise<UserEntity[] | null> {
+    const users = await this.repository.user.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+      select: {
+        id: true,
+        username: true,
+        status: true,
+        roles: true,
+        employeeId: true,
+        createdAt: true,
+        updatedAt: true,
+        deletedAt: true,
+        Employee: true,
+      },
+    });
+    return users;
   }
 }

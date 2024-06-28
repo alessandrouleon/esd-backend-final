@@ -7,6 +7,7 @@ import { ValidateUserUpdateService } from '../services/validate-user-update.serv
 import { DeleteUserUseCase } from '../useCases/delete-user.useCase';
 import { GetUserUseCase } from '../useCases/get-user.useCase';
 import { LoginUserUseCase } from '../useCases/login-user.useCase';
+import { UpdateUserPasswordUseCase } from '../useCases/update-user-password.useCase';
 
 @Module({
   controllers: [UserController],
@@ -24,6 +25,7 @@ import { LoginUserUseCase } from '../useCases/login-user.useCase';
     GetUserUseCase,
     ValidateUserUpdateService,
     LoginUserUseCase,
+    UpdateUserPasswordUseCase,
     {
       provide: 'UserRepositoryContract',
       useClass: UserRepository,
