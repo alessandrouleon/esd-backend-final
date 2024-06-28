@@ -8,6 +8,8 @@ import { DeleteUserUseCase } from '../useCases/delete-user.useCase';
 import { GetUserUseCase } from '../useCases/get-user.useCase';
 import { LoginUserUseCase } from '../useCases/login-user.useCase';
 import { UpdateUserPasswordUseCase } from '../useCases/update-user-password.useCase';
+import { UploadUserUseCase } from '../useCases/upload-user.useCase';
+import { EmployeeModule } from 'src/modules/employees/models/employee.module';
 
 @Module({
   controllers: [UserController],
@@ -26,10 +28,12 @@ import { UpdateUserPasswordUseCase } from '../useCases/update-user-password.useC
     ValidateUserUpdateService,
     LoginUserUseCase,
     UpdateUserPasswordUseCase,
+    UploadUserUseCase,
     {
       provide: 'UserRepositoryContract',
       useClass: UserRepository,
     },
   ],
+  imports: [EmployeeModule],
 })
 export class UserModule {}

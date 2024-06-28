@@ -7,6 +7,8 @@ import {
   Patch,
   Get,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CreateUserUseCase } from '../useCases/create-user.useCase';
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -19,6 +21,8 @@ import { GetUserUseCase } from '../useCases/get-user.useCase';
 // import { Public } from 'src/modules/auth/public';
 import { UpdateUserPasswordUseCase } from '../useCases/update-user-password.useCase';
 import { UpdateUserPasswordDto } from '../dtos/update-user-password.dto';
+import { UploadUserUseCase } from '../useCases/upload-user.useCase';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UserController {
@@ -28,6 +32,7 @@ export class UserController {
     private readonly deleteUserUseCase: DeleteUserUseCase,
     private readonly getUserUseCase: GetUserUseCase,
     private readonly updateUserPasswordUseCase: UpdateUserPasswordUseCase,
+    private readonly uploadUserUseCase: UploadUserUseCase,
   ) {}
 
   @Post()
@@ -73,5 +78,14 @@ export class UserController {
   @Get(':id')
   findSingleUser(@Param('id') id: string) {
     return this.getUserUseCase.getSingleUser(id);
+  }
+
+  @Post('upload/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFilexls(
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+    return this.uploadUserUseCase.parseExcelFile(file);
   }
 }
