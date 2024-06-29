@@ -1,15 +1,28 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { CreateTesteEsdUseCase } from '../useCases/create-testeEsd.useCase';
-import { CreateTesteEsdDto } from '../dtos/create-testeEsd.dto';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { CreateTestEsdUseCase } from '../useCases/create-testEsd.useCase';
+import { CreateTestEsdDto } from '../dtos/create-testEsd.dto';
 import { Public } from 'src/modules/auth/public';
+import { GetTestEsdUseCase } from '../useCases/get-testEsd.useCase';
+import { SearchValueInColumn } from 'src/utils/pagination';
 
-@Controller('testeEsd')
+@Controller('testEsd')
 export class TesteEsdController {
-  constructor(private readonly createTesteEsdUseCase: CreateTesteEsdUseCase) {}
+  constructor(
+    private readonly createTestEsdUseCase: CreateTestEsdUseCase,
+    private readonly getTestEsdUseCase: GetTestEsdUseCase,
+  ) {}
+
+  @Get('/search/:page')
+  async findSearch(
+    @Param('page') page: number,
+    @Query() search: SearchValueInColumn,
+  ) {
+    return this.getTestEsdUseCase.getTestEsds(search, page);
+  }
 
   @Post()
   @Public()
-  create(@Body() createTesteEsdDto: CreateTesteEsdDto) {
-    return this.createTesteEsdUseCase.execute(createTesteEsdDto);
+  create(@Body() createTesteEsdDto: CreateTestEsdDto) {
+    return this.createTestEsdUseCase.execute(createTesteEsdDto);
   }
 }

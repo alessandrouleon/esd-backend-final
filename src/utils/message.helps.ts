@@ -47,7 +47,7 @@ export const EmployeeMessageHelper = {
   EXIST_REGISTRATION: 'Esta matrícula já está cadastrada',
 };
 
-export const TesteEsdMessageHelper = {
+export const TestEsdMessageHelper = {
   EMPTY_BOOT: 'Preencha campo bota antiestática para realizar o teste',
   EMPTY_BRACELETE: 'Preencha campo pulseira antiestática para realizar o teste',
   EMPTY_EMPLOYEE_ID: 'Preencha campo id funcionário',

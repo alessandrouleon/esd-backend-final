@@ -16,6 +16,7 @@ export class AuthController {
     return this.authUserService.signIn(signInDto.username, signInDto.password);
   }
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login-employee')
   signIn(@Body() signInDto: Record<string, any>) {

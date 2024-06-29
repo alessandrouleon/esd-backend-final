@@ -1,23 +1,24 @@
 // import { PaginatedData } from 'src/utils/pagination';
-import { TesteEsdEntity } from '../entities/testeEsd.entity';
-import { CreateTesteEsdDto } from '../dtos/create-testeEsd.dto';
+import { TestEsdEntity } from '../entities/testEsd.entity';
+import { CreateTestEsdDto } from '../dtos/create-testEsd.dto';
 import { EmployeeEntity } from 'src/modules/employees/entities/employee.entity';
+import { PaginatedData } from 'src/utils/pagination';
 
-export interface ITesteEsdReturnWithPagination {
-  testeEsds: TesteEsdEntity[];
+export interface ITestEsdReturnWithPagination {
+  testEsds: TestEsdEntity[];
   total: number;
 }
 
-export interface TesteEsdRepositoryContract {
-  createTesteEsd(data: CreateTesteEsdDto): Promise<TesteEsdEntity>;
+export interface TestEsdRepositoryContract {
+  createTestEsd(data: CreateTestEsdDto): Promise<TestEsdEntity>;
   findByRegistration(registration: string): Promise<EmployeeEntity | null>;
   findByBoot(boot: string): Promise<EmployeeEntity | null>;
   findByBracelete(bracelete: string): Promise<EmployeeEntity | null>;
-  //   findFilteredTesteEsdWithPagination(
-  //     value: string,
-  //     parametersToPaginate: PaginatedData,
-  //   ): Promise<ITesteEsdReturnWithPagination>;
-  //   findAllTestesEsdWithPagination(
-  //     parametersToPaginate: PaginatedData,
-  //   ): Promise<ITesteEsdReturnWithPagination>;
+  findFilteredTestEsdWithPagination(
+    value: string,
+    parametersToPaginate: PaginatedData,
+  ): Promise<ITestEsdReturnWithPagination>;
+  findAllTestsEsdWithPagination(
+    parametersToPaginate: PaginatedData,
+  ): Promise<ITestEsdReturnWithPagination>;
 }
