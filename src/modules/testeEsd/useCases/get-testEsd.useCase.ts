@@ -50,12 +50,8 @@ export class GetTestEsdUseCase {
     if (value) return this.getValuesInTestEsds(value, { page, skip, take });
   }
 
-  // public async getSingleUser(id: string): Promise<UserEntity> {
-  //   return await this.userRepository.findByUserId(id);
-  // }
-
-  // public async getAllUsersNotPagination() {
-  //   const users = await this.userRepository.findAllUsersNotPagination();
-  //   return { users };
-  // }
+  public async getAllTestEsdNotPagination() {
+    const testEsd = await this.testEsdRepository.findAllTesttEsdNotPagination();
+    return { testEsd };
+  }
 }

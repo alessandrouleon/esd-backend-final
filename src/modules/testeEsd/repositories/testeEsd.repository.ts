@@ -200,8 +200,75 @@ export class TestEsdRepository implements TestEsdRepositoryContract {
           },
         },
       }),
-      this.repository.user.count({ where: { deletedAt: null } }),
+      this.repository.testeEsd.count({ where: { deletedAt: null } }),
     ]);
     return { testEsds: data, total };
+  }
+
+  public async findAllTesttEsdNotPagination(): Promise<TestEsdEntity[] | null> {
+    const testeEsd = await this.repository.testeEsd.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: { deletedAt: null },
+      select: {
+        id: true,
+        boot: true,
+        bracelete: true,
+        employeeId: true,
+        createdAt: true,
+        updatedAt: true,
+        deletedAt: true,
+        Employee: {
+          select: {
+            id: true,
+            name: true,
+            registration: true,
+            boot: true,
+            bracelete: true,
+            status: true,
+            occupation: true,
+            imageId: true,
+            shiftId: true,
+            Shift: {
+              select: {
+                id: true,
+                code: true,
+                description: true,
+                createdAt: true,
+                updatedAt: true,
+                deletedAt: true,
+              },
+            },
+            departmentId: true,
+            Department: {
+              select: {
+                id: true,
+                code: true,
+                description: true,
+                createdAt: true,
+                updatedAt: true,
+                deletedAt: true,
+              },
+            },
+            lineId: true,
+            Line: {
+              select: {
+                id: true,
+                code: true,
+                description: true,
+                createdAt: true,
+                updatedAt: true,
+                deletedAt: true,
+              },
+            },
+            createdAt: true,
+            updatedAt: true,
+            deletedAt: true,
+          },
+        },
+      },
+    });
+    return testeEsd;
   }
 }

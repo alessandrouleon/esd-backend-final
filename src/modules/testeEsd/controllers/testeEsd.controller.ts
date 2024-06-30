@@ -20,6 +20,11 @@ export class TesteEsdController {
     return this.getTestEsdUseCase.getTestEsds(search, page);
   }
 
+  @Get('/allTestEsds')
+  async findAllTestEsdNotPaginateds() {
+    return this.getTestEsdUseCase.getAllTestEsdNotPagination();
+  }
+
   @Post()
   @Public()
   create(@Body() createTesteEsdDto: CreateTestEsdDto) {
