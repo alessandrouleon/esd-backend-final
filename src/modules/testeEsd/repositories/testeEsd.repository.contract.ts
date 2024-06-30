@@ -22,4 +22,10 @@ export interface TestEsdRepositoryContract {
     parametersToPaginate: PaginatedData,
   ): Promise<ITestEsdReturnWithPagination>;
   findAllTesttEsdNotPagination(): Promise<TestEsdEntity[] | null>;
+  filteredTestEsdWithPagination(
+    department: string,
+    shift: string,
+    line: string,
+    parametersToPaginate: PaginatedData,
+  ): Promise<ITestEsdReturnWithPagination>;
 }

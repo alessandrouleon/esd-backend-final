@@ -271,4 +271,98 @@ export class TestEsdRepository implements TestEsdRepositoryContract {
     });
     return testeEsd;
   }
+
+  //Filtro Teste ESD
+  public async filteredTestEsdWithPagination(
+    department: string,
+    shift: string,
+    line: string,
+    { take, page }: PaginatedData,
+  ): Promise<ITestEsdReturnWithPagination> {
+    const [data] = await Promise.all([
+      this.repository.testeEsd.findMany({
+        take,
+        skip: (page - 1) * take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        where: {
+          OR: [
+            {
+              Employee: {
+                Department: {
+                  description: { contains: department },
+                },
+                Shift: {
+                  description: { contains: shift },
+                },
+
+                Line: { description: { contains: line } },
+              },
+            },
+          ],
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          boot: true,
+          bracelete: true,
+          employeeId: true,
+          createdAt: true,
+          updatedAt: true,
+          deletedAt: true,
+          Employee: {
+            select: {
+              id: true,
+              name: true,
+              registration: true,
+              boot: true,
+              bracelete: true,
+              status: true,
+              occupation: true,
+              imageId: true,
+              shiftId: true,
+              Shift: {
+                select: {
+                  id: true,
+                  code: true,
+                  description: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  deletedAt: true,
+                },
+              },
+              departmentId: true,
+              Department: {
+                select: {
+                  id: true,
+                  code: true,
+                  description: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  deletedAt: true,
+                },
+              },
+              lineId: true,
+              Line: {
+                select: {
+                  id: true,
+                  code: true,
+                  description: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  deletedAt: true,
+                },
+              },
+              createdAt: true,
+              updatedAt: true,
+              deletedAt: true,
+            },
+          },
+        },
+      }),
+    ]);
+    const total = data.length;
+    return { testEsds: data, total };
+  }
 }

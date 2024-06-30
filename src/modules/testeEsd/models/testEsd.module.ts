@@ -4,6 +4,7 @@ import { CreateTestEsdUseCase } from '../useCases/create-testEsd.useCase';
 import { TestEsdRepository } from '../repositories/testeEsd.repository';
 import { EmployeeModule } from 'src/modules/employees/models/employee.module';
 import { GetTestEsdUseCase } from '../useCases/get-testEsd.useCase';
+import { FilterTestEsdUseCase } from '../useCases/filter-testEsd.useCase';
 
 @Module({
   controllers: [TesteEsdController],
@@ -11,6 +12,7 @@ import { GetTestEsdUseCase } from '../useCases/get-testEsd.useCase';
   providers: [
     CreateTestEsdUseCase,
     GetTestEsdUseCase,
+    FilterTestEsdUseCase,
     {
       provide: 'TestEsdRepositoryContract',
       useClass: TestEsdRepository,

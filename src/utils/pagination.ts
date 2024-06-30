@@ -1,6 +1,11 @@
 export class SearchValueInColumn {
   value: string;
 }
+export class FilterColumnTestEsd {
+  shift?: string;
+  department?: string;
+  line?: string;
+}
 
 export class PaginatedData {
   total?: number;
