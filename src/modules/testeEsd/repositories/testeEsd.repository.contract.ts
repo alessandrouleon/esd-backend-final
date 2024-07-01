@@ -26,6 +26,7 @@ export interface TestEsdRepositoryContract {
     department: string,
     shift: string,
     line: string,
-    parametersToPaginate: PaginatedData,
-  ): Promise<ITestEsdReturnWithPagination>;
+    startDate: string,
+    endDate: string,
+  ): Promise<EmployeeEntity[] | null>;
 }

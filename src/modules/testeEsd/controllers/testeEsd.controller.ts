@@ -3,8 +3,9 @@ import { CreateTestEsdUseCase } from '../useCases/create-testEsd.useCase';
 import { CreateTestEsdDto } from '../dtos/create-testEsd.dto';
 import { Public } from 'src/modules/auth/public';
 import { GetTestEsdUseCase } from '../useCases/get-testEsd.useCase';
-import { FilterColumnTestEsd, SearchValueInColumn } from 'src/utils/pagination';
+import { SearchValueInColumn } from 'src/utils/pagination';
 import { FilterTestEsdUseCase } from '../useCases/filter-testEsd.useCase';
+import { FilterColumnTestEsd } from '../dtos/filter-column-testEsd.dto';
 
 @Controller('testEsd')
 export class TesteEsdController {
@@ -22,12 +23,9 @@ export class TesteEsdController {
     return this.getTestEsdUseCase.getTestEsds(search, page);
   }
 
-  @Get('/filter/:page')
-  async filterTestEsd(
-    @Param('page') page: number,
-    @Query() filter: FilterColumnTestEsd,
-  ) {
-    return this.filterTestEsdUseCase.getFilterTestEsds(filter, page);
+  @Get('/filter')
+  async filterTestEsd(@Query() filter: FilterColumnTestEsd) {
+    return this.filterTestEsdUseCase.getFilterTestEsds(filter);
   }
 
   @Get('/allTestEsds')

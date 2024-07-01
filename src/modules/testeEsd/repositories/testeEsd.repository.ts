@@ -13,7 +13,6 @@ import { CreateTestEsdDto } from '../dtos/create-testEsd.dto';
 @Injectable()
 export class TestEsdRepository implements TestEsdRepositoryContract {
   constructor(private readonly repository: PrismaService) {}
-
   public async createTestEsd(data: CreateTestEsdDto): Promise<TestEsdEntity> {
     return await this.repository.testeEsd.create({ data });
   }
@@ -272,97 +271,52 @@ export class TestEsdRepository implements TestEsdRepositoryContract {
     return testeEsd;
   }
 
-  //Filtro Teste ESD
   public async filteredTestEsdWithPagination(
     department: string,
     shift: string,
     line: string,
-    { take, page }: PaginatedData,
-  ): Promise<ITestEsdReturnWithPagination> {
-    const [data] = await Promise.all([
-      this.repository.testeEsd.findMany({
-        take,
-        skip: (page - 1) * take,
-        orderBy: {
-          createdAt: 'desc',
-        },
-        where: {
-          OR: [
-            {
-              Employee: {
-                Department: {
-                  description: { contains: department },
-                },
-                Shift: {
-                  description: { contains: shift },
-                },
+    startDate: string,
+    endDate: string,
+  ): Promise<EmployeeEntity[] | null> {
+    const start = new Date(startDate);
+    start.setUTCHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setUTCHours(23, 59, 59, 999);
 
-                Line: { description: { contains: line } },
-              },
-            },
-          ],
-          deletedAt: null,
+    const employees = await this.repository.employee.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      where: {
+        deletedAt: null,
+        Department: {
+          description: { contains: department },
         },
-        select: {
-          id: true,
-          boot: true,
-          bracelete: true,
-          employeeId: true,
-          createdAt: true,
-          updatedAt: true,
-          deletedAt: true,
-          Employee: {
-            select: {
-              id: true,
-              name: true,
-              registration: true,
-              boot: true,
-              bracelete: true,
-              status: true,
-              occupation: true,
-              imageId: true,
-              shiftId: true,
-              Shift: {
-                select: {
-                  id: true,
-                  code: true,
-                  description: true,
-                  createdAt: true,
-                  updatedAt: true,
-                  deletedAt: true,
-                },
-              },
-              departmentId: true,
-              Department: {
-                select: {
-                  id: true,
-                  code: true,
-                  description: true,
-                  createdAt: true,
-                  updatedAt: true,
-                  deletedAt: true,
-                },
-              },
-              lineId: true,
-              Line: {
-                select: {
-                  id: true,
-                  code: true,
-                  description: true,
-                  createdAt: true,
-                  updatedAt: true,
-                  deletedAt: true,
-                },
-              },
-              createdAt: true,
-              updatedAt: true,
-              deletedAt: true,
+        Shift: {
+          description: { contains: shift },
+        },
+        Line: {
+          description: { contains: line },
+        },
+      },
+      include: {
+        Shift: true,
+        Department: true,
+        Line: true,
+        TesteEsd: {
+          where: {
+            deletedAt: null,
+            createdAt: {
+              gte: start,
+              lte: end,
             },
           },
+          orderBy: {
+            createdAt: 'desc',
+          },
         },
-      }),
-    ]);
-    const total = data.length;
-    return { testEsds: data, total };
+      },
+    });
+    return employees;
   }
 }

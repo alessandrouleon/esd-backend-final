@@ -81,3 +81,8 @@ export const SupabaseValidationMessageHelper = {
   VALIDATE_FILE_TYPE: 'Apenas arquivos de tipo imagem são permitidos!',
   IMAGE_NOT_EXISTS: 'Esta imagem não existe!',
 };
+
+export const FilterColumnTestEsdMessage = {
+  EMPT_START_DATE: 'Informe a data inicial',
+  EMPT_AND_DATE: 'Informe a data final',
+};

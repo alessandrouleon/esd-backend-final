@@ -1,13 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  FilterColumnTestEsd,
-  PaginatedData,
-  getParametersToPaginate,
-  paginateResponse,
-} from 'src/utils/pagination';
-import { PaginatedTestEsdDTO } from '../dtos/paginated-testEsd.dto';
-import { TestEsdEntity } from '../entities/testEsd.entity';
 import { TestEsdRepositoryContract } from '../repositories/testeEsd.repository.contract';
+import { FilterColumnTestEsd } from '../dtos/filter-column-testEsd.dto';
+import { EmployeeEntity } from 'src/modules/employees/entities/employee.entity';
 
 @Injectable()
 export class FilterTestEsdUseCase {
@@ -19,50 +13,34 @@ export class FilterTestEsdUseCase {
     department: string,
     shift: string,
     line: string,
-    { skip, take, page }: PaginatedData,
+    startDate: string,
+    endDate: string,
   ) {
-    const { testEsds, total } =
-      await this.testEsdRepository.filteredTestEsdWithPagination(
+    const testEsds = await this.testEsdRepository.filteredTestEsdWithPagination(
+      department,
+      shift,
+      line,
+      startDate,
+      endDate,
+    );
+    return testEsds;
+  }
+
+  public async getFilterTestEsds({
+    shift,
+    department,
+    line,
+    startDate,
+    endDate,
+  }: FilterColumnTestEsd): Promise<EmployeeEntity[]> {
+    if (department || shift || line || startDate || endDate) {
+      return this.getValuesInTestEsds(
         department,
         shift,
         line,
-        {
-          skip,
-          take,
-          page,
-        },
+        startDate,
+        endDate,
       );
-    const goal = paginateResponse({ total, page, take });
-    return { testEsds, ...goal };
-  }
-
-  private async getAllTestEsdPaginated({ skip, take, page }: PaginatedData) {
-    const { testEsds, total } =
-      await this.testEsdRepository.findAllTestsEsdWithPagination({
-        skip,
-        take,
-        page,
-      });
-    const goal = paginateResponse({ total, page, take });
-
-    return { testEsds, ...goal };
-  }
-
-  public async getFilterTestEsds(
-    { shift, department, line }: FilterColumnTestEsd,
-    pageNumber: number,
-  ): Promise<PaginatedTestEsdDTO | TestEsdEntity[]> {
-    const { skip, take, page } = getParametersToPaginate(pageNumber);
-    if (!department && !shift && !line) {
-      return this.getAllTestEsdPaginated({ page, skip, take });
-    }
-
-    if (department || shift || line) {
-      return this.getValuesInTestEsds(department, shift, line, {
-        page,
-        skip,
-        take,
-      });
     }
   }
 }

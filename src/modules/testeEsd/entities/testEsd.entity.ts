@@ -8,7 +8,6 @@ export class TestEsdEntity {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
-
   constructor(props: Omit<TestEsdEntity, 'id'>, id?: string) {
     Object.assign(this, props);
     this.id = id ?? uuid();
